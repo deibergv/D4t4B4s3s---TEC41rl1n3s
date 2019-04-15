@@ -1,3 +1,4 @@
+CREATE DATABASE TECAirlines
 USE TECAirlines
 
 CREATE TABLE Tiquete (
@@ -94,3 +95,4 @@ CREATE TABLE Reservación (
   IDPropietario VARCHAR NOT NULL,
   PRIMARY KEY(ID)
 );
+
