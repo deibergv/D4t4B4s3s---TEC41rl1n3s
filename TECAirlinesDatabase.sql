@@ -1,4 +1,4 @@
-CREATE DATABASE TECAirlines
+-- CREATE DATABASE TECAirlines
 USE TECAirlines
 
 CREATE TABLE Tiquete (
