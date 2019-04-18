@@ -2,10 +2,12 @@ dist: trusty
 
 language: node_js
 node_js:
+  - 6
   - 10
 
 addons:
   chrome: stable
+  firefox: latest
 
 cache:
   directories:
