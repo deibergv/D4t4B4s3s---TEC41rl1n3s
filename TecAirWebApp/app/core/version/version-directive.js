@@ -1,9 +1,9 @@
 'use strict';
 
 angular.
-  module('version', []).
-  directive('appVersion', ['ver', function(ver) {
+  module('core.version').
+  directive('appVersion', ['version', function(version) {
     return function(scope, elm, attrs) {
-      elm.text(ver);
+      elm.text(version);
     };
 }]);

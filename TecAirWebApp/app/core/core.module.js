@@ -1,6 +1,4 @@
 'use strict';
 
 // Define the `core` module
-angular.module('core', [
-    'version'
-    ]);
+angular.module('core', ['core.version']);

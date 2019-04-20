@@ -1,7 +1,9 @@
-'use strict'
+'use strict';
 
-angular.module('global',[
+angular.module('root',[
+    'ngRoute',
+    'ngAnimate',
     'core',
     'airport',
     'client'
-])
+]);

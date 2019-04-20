@@ -1,6 +1,4 @@
-// 'use strict';
+'use strict';
 
 // Declare app level module which depends on views, and core components
-// angular.
-//   module('airport').
-//   config([]);
+angular.module('client', []);

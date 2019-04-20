@@ -1,5 +1,5 @@
 {
-  "name": "tec-air-web-app",
+  "name": "tecair-app",
   "private": true,
   "version": "0.0.0",
   "description": "A starter project for AngularJS",
@@ -8,13 +8,13 @@
   "dependencies": {
     "angular": "1.7.x",
     "angular-animate": "1.7.x",
-    "angular-resource": "1.7.x",
     "angular-loader": "1.7.x",
-    "angular-route": "1.7.x",
+    "angular-resource": "1.7.x",
+    "angular-route": "^1.7.8",
     "angular-touch": "1.7.x",
+    "angular-ui-bootstrap": "2.5.x",
     "bootstrap": "3.3.x",
-    "jquery": "3.3.x",
-    "angular-ui-bootstrap": "^2.5.6"
+    "jquery": "3.3.x"
   },
   "devDependencies": {
     "angular-mocks": "1.7.x",

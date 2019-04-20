@@ -3,4 +3,4 @@
 angular.module('airport', [
     'ngRoute',
     'core'
-  ])
+  ]);

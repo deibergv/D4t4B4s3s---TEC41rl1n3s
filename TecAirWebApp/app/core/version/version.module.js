@@ -1,4 +1,3 @@
 'use strict';
 
-angular.module('version', []).
-  value('ver', '0.1');
+angular.module('core.version', []);
