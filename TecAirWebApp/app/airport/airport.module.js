@@ -2,5 +2,5 @@
 
 angular.module('airport', [
     'ngRoute',
-    'core'
+    'core.version'
   ]);

@@ -4,5 +4,10 @@
 angular.
   module('client').
   component('client', {
-    templateUrl: 'client/client.template.html'
+    templateUrl: 'client/client.template.html',
+    controller: [
+      function ClientController() {
+        this.name = 'hola';
+      }
+    ]
   });
