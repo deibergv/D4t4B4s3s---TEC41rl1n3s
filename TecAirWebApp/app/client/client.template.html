@@ -5,12 +5,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
-                        <!-- <a class="logo" href="index.html">
-                            <img src="img/40x40.png" alt="Image Alternative text" title="Image Title" />
-                        </a> -->
+                        <a class="logo" href="#!/tecairlines/home">
+                            <img src="img/logo.png" title="Tec Airlines" />
+                        </a>
                     </div>
                     <div class="col-md-3 col-md-offset-2">
-
+                        <h3>TEC Airlines</h3>
                     </div>
                     <div class="col-md-4">
                         <div class="top-user-area clearfix">
@@ -30,9 +30,9 @@
             <div class="nav">
                 <ul class="slimmenu" id="slimmenu">
                     <li class="active">
-                        <!-- <a href="index.html"> -->
+                        <a href="#!/tecairlines/home"> -->
                             Inicio
-                        <!-- </a> -->
+                        </a>
                     </li>                        
                     <li>
                         <!-- <a href="buscar-vuelos.html"> -->
@@ -44,12 +44,168 @@
         </div>
     </header>
     <!-- TOP AREA -->
-    <!-- <div ng-view></div> -->
+    
+    <div class="top-area show-onload">
+        <div uib-carousel active="active" interval="5000" no-wrap="noWrapSlides">
+            <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+                <img ng-src="{{slide.image}}" style="margin:auto;">
+                <div class="carousel-caption">
+                    <h4>Slide {{slide.id}}</h4>
+                    <p>{{slide.text}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="owl-carousel owl-slider owl-carousel-area" id="owl-carousel-slider">
+            <div class="bg-holder full text-center text-white">					
+                <div class="bg-mask"></div>
+                <div class="bg-img" style="background-image:url(https://frander.xyz/img/atlanta.jpg);"></div>
+                <div class="bg-front full-center">
+                    <div class="owl-cap">
+                        <h1 class="owl-cap-title fittext">Viaje a Atlanta</h1>
+                        <div class="owl-cap-price"><small>desde</small>
+                            <h5>$2600</h5>
+                        </div><a class="btn btn-white btn-ghost" href="#"><i class="fa fa-angle-right"></i> Explore</a>
+                    </div>
+                </div>
+            </div> 
+            <div class="bg-holder full text-center text-white">					
+                <div class="bg-mask"></div>
+                <div class="bg-img" style="background-image:url(https://frander.xyz/img/holanda.jpg);"></div>
+                <div class="bg-front full-center">
+                    <div class="owl-cap">
+                        <h1 class="owl-cap-title fittext">Viaje a Amsterdam</h1>
+                        <div class="owl-cap-price"><small>desde</small>
+                            <h5>$2400</h5>
+                        </div><a class="btn btn-white btn-ghost" href="#"><i class="fa fa-angle-right"></i> Explore</a>
+                    </div>
+                </div>
+            </div> 
+            <div class="bg-holder full text-center text-white">					
+                <div class="bg-mask"></div>
+                <div class="bg-img" style="background-image:url(https://frander.xyz/img/madrid.jpg);"></div>
+                <div class="bg-front full-center">
+                    <div class="owl-cap">
+                        <h1 class="owl-cap-title fittext">Viaje a Madrid</h1>
+                        <div class="owl-cap-price"><small>desde</small>
+                            <h5>$2600</h5>
+                        </div><a class="btn btn-white btn-ghost" href="#"><i class="fa fa-angle-right"></i> Explore</a>
+                    </div>
+                </div>
+            </div>                 
+        </div>
+    </div>
+    <!-- END TOP AREA  -->
+    
+    <!-- área media -->
+    <div class="container">
+        <div class="search-tabs search-tabs-bg search-tabs-nobox search-tabs-lift-top">
+            <div class="tabbable">
+                <div class="nav tab-content">
+                    <div class="tab-pane fade in active" id="tab-2">
+                        <h2> <br> Buscar vuelos</h2>
+                        <form>
+                            <uib-tabset active="active" template-url="lib/angular-ui-bootstrap/template/tabs/tabset.html">
+                                <uib-tab index="0" heading="Ida y vuelta" template-url="lib/angular-ui-bootstrap/template/tabs/tab.html">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
+                                                        <label>De</label>
+                                                        <input class="form-control" placeholder="San José (SJO)" type="text" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
+                                                        <label>Hacia</label>
+                                                        <input class="form-control" placeholder="Destino" type="text" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-daterange" data-date-format="M d, D">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                                            <label>Salida</label>
+                                                            <input class="form-control" name="start" type="text" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                                            <label>Regreso</label>
+                                                            <input class="form-control" name="end" type="text" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="1" heading="Solo ida" template-url="lib/angular-ui-bootstrap/template/tabs/tab.html">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
+                                                        <label>De</label>
+                                                        <input class="form-control" placeholder="San José (SJO)" type="text" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
+                                                        <label>Hacia</label>
+                                                        <input class="form-control" placeholder="Destino" type="text" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-daterange" data-date-format="M d, D">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                                            <label>Salida</label>
+                                                            <input class="form-control" name="start" type="text" />
+                                                        </div>
+                                                    </div>                                                            
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                            <button class="btn btn-primary btn-lg" type="submit">Buscar vuelos</button>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="gap gap-small"></div>
+    </div>
+    
+    <!-- área media -->
+
+    <!-- holder -->
+    <div class="bg-holder">
+        <div class="bg-mask"></div>
+        <div class="bg-parallax" style="background-image:url(img/register.jpeg);"></div>
+        <div class="bg-content">
+            <div class="container">
+                <div class="gap gap-big text-center text-white">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- holder -->
+
     <!-- footer -->
     <footer id="main-footer">
         <div class="container">
             <div class="row row-wrap">
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                     <p class="mb20">Puedes seguirnos en nuestras redes sociales</p>
                     <ul class="list list-horizontal list-space">
                         <li>
@@ -59,23 +215,23 @@
                             <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
 
                 <div class="col-md-3">
                     
 
                 </div>
-                <div class="col-md-2">
+                <!-- <div class="col-md-2">
                     <ul class="list list-footer">
                         <li><a href="#">Acerca de</a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
                 <div class="col-md-4">
                     <h4>¿Tienes preguntas?</h4>
                     <h4 class="text-color">+506 8888-8888</h4>
-                    <h4><a href="#" class="text-color">soporte@tec-airlines.com</a></h4>
-                    <p>Soporte 24/7</p>
+                    <h4><a href="#" class="text-color">support@tecairlines.com</a></h4>
+                    <p>Con gusto le atenderemos.</p>
                 </div>
 
             </div>
