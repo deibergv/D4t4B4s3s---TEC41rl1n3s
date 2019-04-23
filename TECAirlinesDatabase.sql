@@ -1,27 +1,101 @@
  ---CREATE DATABASE TECAirlines
  ---USE TECAirlines
- /*
+
+/*
+ CREATE TABLE Maleta (
+  codigoM VARCHAR(50) NOT NULL,
+  IDPropietario VARCHAR(50) NOT NULL,
+  PRIMARY KEY(codigoM)
+);
+
+CREATE TABLE PMaleta (
+	codigoM VARCHAR(50) NOT NULL,
+	peso INTEGER NOT NULL,
+	PRIMARY KEY(codigoM)
+);
+
 CREATE TABLE Tiquete (
 	ID INTEGER NOT NULL,
+	IDR INTEGER NOT NULL,
 	Asiento INTEGER NOT NULL,
+	IDMaleta VARCHAR(50) NOT NULL,
 	PRIMARY KEY(ID)
 );
 
-CREATE TABLE Escala (
-  Millas INTEGER NOT NULL,
-  Duración INTEGER NOT NULL,
-  Fecha DATE NOT NULL
+CREATE TABLE Universidad (
+  Carné INTEGER NOT NULL,
+  NombreComp VARCHAR(50) NOT NULL,
+  PRIMARY KEY(Carné)
 );
 
-CREATE TABLE Pasajero (
-  Pasaporte INTEGER NOT NULL,
-  Nombre VARCHAR(50) NOT NULL,
-  Estado VARCHAR(50) NOT NULL,
-  Reservacion INTEGER NOT NULL,
-  Tiquete BIT NOT NULL,
-  CantidadMaletas INTEGER NOT NULL,
-  NTarjeta INTEGER NOT NULL,
-  PRIMARY KEY(Pasaporte)
+CREATE TABLE Estudiante (
+  Pasaporte VARCHAR(50) NOT NULL,
+  Carné VARCHAR(50) NOT NULL,
+  MillasE INTEGER NOT NULL,
+  PRIMARY KEY(Carné)
+);
+
+CREATE TABLE Avión (
+  Tipo VARCHAR(50) NOT NULL,
+  AsientosDisponibles BIT NOT NULL,
+  PRIMARY KEY(Tipo)
+);
+
+CREATE TABLE TAvion (
+	Tipo VARCHAR(50) NOT NULL,
+	PrimClase INTEGER NOT NULL,
+	EconClase INTEGER NOT NULL,
+	PRIMARY KEY(Tipo)
+);
+
+CREATE TABLE AsistenteVuelo (
+  ID VARCHAR(50) NOT NULL,
+  Correo VARCHAR(50) NOT NULL,
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE NAsistenteVuelo(
+	ID VARCHAR(50) NOR NULL,
+	Nombre VARCHAR(50) NOT NULL,
+	PRIMARY KEY(ID)
+);
+
+CREATE TABLE Asiento (
+	IDTiquete VARCHAR(50),
+	Numero INTEGER NOT NULL,
+	Categoría VARCHAR(50) NOT NULL,
+	PRIMARY KEY(IDTiquete)
+);
+
+CREATE TABLE Cliente (
+	Pasaporte INTEGER NOT NULL,
+	NombreComp VARCHAR(50) NOT NULL,
+	Teléfono INTEGER NOT NULL,
+	Correo VARCHAR(50) NOT NULL,
+	Estudiante BIT NOT NULL,
+	Contraseña VARCHAR(50) NOT NULL,
+	NTarjeta INTEGER NOT NULL,
+	PRIMARY KEY(Pasaporte)
+);
+
+CREATE TABLE Escala (
+	IDVuelo VARCHAR(50) NOT NULL,
+	Numero INTEGER NOT NULL,
+	Millas INTEGER NOT NULL,
+	AeSalida VARCHAR(50) NOT NULL,
+	AeLlegada VARCHAR(50) NOT NULL,
+	FechaSalida VARCHAR(50) NOT NULL,
+	FechaLlegada VARCHAR(50) NOT NULL,
+	Duración INTEGER NOT NULL,
+	PRIMARY KEY(IDVuelo)
+);
+
+CREATE TABLE Vuelo (
+	IDVuelo VARCHAR(50) NOT NULL,
+	Precio INTEGER NOT NULL,
+	CPasajeros INTEGER NOT NULL,
+	CantMaletas INTEGER NOT NULL,
+	PRIMARY KEY(IDVuelo)
 );
 
 CREATE TABLE Aeropuerto (
@@ -31,72 +105,20 @@ CREATE TABLE Aeropuerto (
   PRIMARY KEY(Nombre)
 );
 
-CREATE TABLE Vuelo (
-  Pasajeros VARCHAR(50) NOT NULL,
-  CantMaletas INTEGER NOT NULL,
-  Ruta INTEGER NOT NULL,
-  Fecha DATE NOT NULL,
-  Destino VARCHAR(50) NOT NULL,
-  PesoTotal INTEGER NOT NULL
-);
-
-CREATE TABLE Cliente (
-  NombreComp VARCHAR(50) NOT NULL,
-  Teléfono INTEGER NOT NULL,
-  Correo VARCHAR(50) NOT NULL,
-  Estudiante BIT NOT NULL,
-  InfoU VARCHAR(50) NOT NULL,
-  Carné VARCHAR(50) NOT NULL,
-  millasEstudiante INTEGER NOT NULL,
-  PRIMARY KEY(Correo)
-);
-
-CREATE TABLE Asiento (
-  Numero INTEGER NOT NULL,
-  Categoría VARCHAR(50) NOT NULL
-);
-
-CREATE TABLE Promoción (
-  Costo INTEGER NOT NULL,
-  Ruta VARCHAR(50) NOT NULL,
-  Fecha DATE NOT NULL
-);
-
-CREATE TABLE Universidad (
-  NombreComp VARCHAR(50) NOT NULL,
-  MIllaEstudiante INTEGER NOT NULL,
-  Carné INTEGER NOT NULL
-);
-
-CREATE TABLE AsistenteVuelo (
-  ID VARCHAR(50) NOT NULL,
-  Nombre VARCHAR(50) NOT NULL,
-  Correo VARCHAR(50) NOT NULL,
-  PRIMARY KEY(ID)
-);
-
-CREATE TABLE Maleta (
-  codigoM VARCHAR(50) NOT NULL,
-  peso INTEGER NOT NULL,
-  IDPropetario INTEGER NOT NULL,
-  PRIMARY KEY(codigoM)
-);
-
-CREATE TABLE Avión (
-  Tipo VARCHAR(50) NOT NULL,
-  ID VARCHAR(50) NOT NULL,
-  AsientosDisponibles BIT NOT NULL,
-  PrimClase INTEGER NOT NULL,
-  EconClase INTEGER NOT NULL,
-  PRIMARY KEY(ID)
-);
-
 CREATE TABLE Reservación (
-  ID INTEGER NOT NULL,
-  CantidadTiquetes INTEGER NOT NULL,
+  IDReservacion INTEGER NOT NULL,
   IDPropietario VARCHAR(50) NOT NULL,
   PRIMARY KEY(ID)
 );
+
+CREATE TABLE Promoción (
+	IDPromo VARCHAR(50) NOT NULL,
+	Costo INTEGER NOT NULL,
+	Fecha DATE NOT NULL,
+	PRIMARY KEY(IDPromo)
+);
+
+
 */
 
 --PASAJEROS
