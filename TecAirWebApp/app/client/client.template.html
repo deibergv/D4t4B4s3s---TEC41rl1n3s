@@ -45,41 +45,36 @@
     </header>
     <!-- TOP AREA -->
     
+    <!-- <uib-carousel class="top-area show-onload"> -->
     <div class="top-area show-onload">
-        <div uib-carousel active="active" interval="5000" no-wrap="noWrapSlides">
-            <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-                <img ng-src="{{slide.image}}" style="margin:auto;">
+        <div uib-carousel active="0" interval="5000" no-wrap="false" template-url="lib/angular-ui-bootstrap/template/carousel/carousel.html">
+            <div uib-slide index="0" template-url="lib/angular-ui-bootstrap/template/carousel/slide.html">
+                <img class="bg-img" ng-src="img/backgrounds/beach.jpg">
                 <div class="carousel-caption">
-                    <h4>Slide {{slide.id}}</h4>
-                    <p>{{slide.text}}</p>
+                    <h4>Viaje a Atlanta</h4>
+                    <p>desde $2600</p>
+                    <!-- <a class="btn btn-white btn-ghost" href="#"><i class="fa fa-angle-right"></i> Explore</a> -->
+                </div>
+            </div>
+            <div uib-slide index="1" template-url="lib/angular-ui-bootstrap/template/carousel/slide.html">
+                <img class="bg-img" ng-src="img/backgrounds/bike.jpg">
+                <div class="carousel-caption">
+                    <h4>Viaje a Armsterdan</h4>
+                    <p>desde $2400</p>
+                    <!-- <a class="btn btn-white btn-ghost" href="#"><i class="fa fa-angle-right"></i> Explore</a> -->
+                </div>
+            </div>
+            <div uib-slide index="2" template-url="lib/angular-ui-bootstrap/template/carousel/slide.html">
+                <img class="bg-img" ng-src="img/backgrounds/phone.jpg">
+                <div class="carousel-caption">
+                    <h4>Viaje a Madrid</h4>
+                    <p>desde $2600</p>
+                    <!-- <a class="btn btn-white btn-ghost" href="#"><i class="fa fa-angle-right"></i> Explore</a> -->
                 </div>
             </div>
         </div>
-        <div class="owl-carousel owl-slider owl-carousel-area" id="owl-carousel-slider">
-            <div class="bg-holder full text-center text-white">					
-                <div class="bg-mask"></div>
-                <div class="bg-img" style="background-image:url(https://frander.xyz/img/atlanta.jpg);"></div>
-                <div class="bg-front full-center">
-                    <div class="owl-cap">
-                        <h1 class="owl-cap-title fittext">Viaje a Atlanta</h1>
-                        <div class="owl-cap-price"><small>desde</small>
-                            <h5>$2600</h5>
-                        </div><a class="btn btn-white btn-ghost" href="#"><i class="fa fa-angle-right"></i> Explore</a>
-                    </div>
-                </div>
-            </div> 
-            <div class="bg-holder full text-center text-white">					
-                <div class="bg-mask"></div>
-                <div class="bg-img" style="background-image:url(https://frander.xyz/img/holanda.jpg);"></div>
-                <div class="bg-front full-center">
-                    <div class="owl-cap">
-                        <h1 class="owl-cap-title fittext">Viaje a Amsterdam</h1>
-                        <div class="owl-cap-price"><small>desde</small>
-                            <h5>$2400</h5>
-                        </div><a class="btn btn-white btn-ghost" href="#"><i class="fa fa-angle-right"></i> Explore</a>
-                    </div>
-                </div>
-            </div> 
+    </div>
+        <!-- <div class="owl-carousel owl-slider owl-carousel-area" id="owl-carousel-slider">
             <div class="bg-holder full text-center text-white">					
                 <div class="bg-mask"></div>
                 <div class="bg-img" style="background-image:url(https://frander.xyz/img/madrid.jpg);"></div>
@@ -92,7 +87,7 @@
                     </div>
                 </div>
             </div>                 
-        </div>
+        </div> -->
     </div>
     <!-- END TOP AREA  -->
     
