@@ -1,5 +1,5 @@
- ---CREATE DATABASE TECAirlines
- ---USE TECAirlines
+ --CREATE DATABASE TECAirlines
+ USE TECAirlines
 
 /*
  CREATE TABLE Maleta (
@@ -15,8 +15,8 @@ CREATE TABLE PMaleta (
 );
 
 CREATE TABLE Tiquete ( 
-	ID INTEGER NOT NULL,
-	IDR INTEGER NOT NULL,
+	ID VARCHAR(50) NOT NULL,
+	IDR VARCHAR(50) NOT NULL,
 	IDMaleta VARCHAR(50) NOT NULL,
 	PRIMARY KEY(ID)
 );
@@ -28,10 +28,10 @@ CREATE TABLE Universidad (
 );
 
 CREATE TABLE Estudiante ( 
-  Pasaporte VARCHAR(50) NOT NULL,
-  Carné VARCHAR(50) NOT NULL,
-  MillasE INTEGER NOT NULL,
-  PRIMARY KEY(Carné)
+	Carné VARCHAR(50) NOT NULL,
+	Pasaporte INTEGER NOT NULL,
+	MillasE INTEGER NOT NULL,
+	PRIMARY KEY(Carné)
 );
 
 CREATE TABLE Avion ( 
@@ -54,7 +54,7 @@ CREATE TABLE AsistenteVuelo (
 );
 
 CREATE TABLE NAsistenteVuelo(
-	ID VARCHAR(50) NOR NULL,
+	ID VARCHAR(50) NOT NULL,
 	Nombre VARCHAR(50) NOT NULL,
 	PRIMARY KEY(ID)
 );
@@ -83,15 +83,15 @@ CREATE TABLE Escala (
 	Millas INTEGER NOT NULL,
 	AeSalida VARCHAR(50) NOT NULL,
 	AeLlegada VARCHAR(50) NOT NULL,
-	FechaSalida VARCHAR(50) NOT NULL,
-	FechaLlegada VARCHAR(50) NOT NULL,
+	FechaSalida DATETIME NOT NULL,
+	FechaLlegada DATETIME NOT NULL,
 	Duración INTEGER NOT NULL,
 	PRIMARY KEY(IDEscala)
 );
 
 CREATE TABLE CEscala(
-	IDVuelo VARCHAR(50) NOT NULL,
 	IDEscala VARCHAR(50) NOT NULL,
+	IDVuelo VARCHAR(50) NOT NULL,
 	PRIMARY KEY(IDEscala)
 );
 
@@ -111,33 +111,36 @@ CREATE TABLE Aeropuerto (
 );
 
 CREATE TABLE Reservacion (
-  IDReservacion INTEGER NOT NULL,
+  IDReservacion VARCHAR(50) NOT NULL,
+  TipoA VARCHAR(50) NOT NULL,
   IDPropietario VARCHAR(50) NOT NULL,
-  PRIMARY KEY(ID)
+  PRIMARY KEY(IDReservacion)
 );
 
 CREATE TABLE Promocion (
 	IDPromo VARCHAR(50) NOT NULL,
+	IDVuelo VARCHAR(50) NOT NULL,
 	Costo INTEGER NOT NULL,
-	Fecha DATE NOT NULL,
+	Fecha DATETIME NOT NULL,
 	PRIMARY KEY(IDPromo)
 );
+
 */
 
 --CLIENTE
 
-/*
-insert into Cliente values(12312312, 'Juan Madrigal', 88493012, juancito@gmail.com, 1,junito91, 199283928)
-insert into Cliente values(321323, 'Enrique Molina',84738193, enriqueM@gmail.com, 1, enriquitofeo, 191228393)
-insert into Cliente values(1244534, 'Mario Bros', 83920496, bowserhp@gmail.com, 0, mariobrosesito, 472189293)
-insert into Cliente values(53814223, 'Juanito Ramiro',74829271, jaime@gmail.com, 0,juanelpro, 923984291)
-insert into Cliente values(17283920, 'Jimena Quiros',75829105, jimenita@gmail.com, 1, jimejime, 256482179)
-insert into Cliente values(5902366, 'Jon Snow',748960381, Vheredero@gmail.com, 0, loboblanco, 348912012)
-insert into Cliente values(1829317, 'Jaime Lanister',63849145, matareyes@gmail.com, 0, bronnesfeo, 328910804)
-insert into Cliente values(23182756, 'Gensen Gold',85830174, suizo@gmail.com, 1, yonose, 981739821)
-insert into Cliente values(4892837, 'Ishika Mata',88849371, ishikamandam@gmail.com, 1, aksd31, 8172319823)
-insert into Cliente values(596895, 'Maria Ramos',76940174, lamasfea@gmail.com, 1, jmaira3, 18239182398)
-*/
+--insert into Cliente values(12312312, 'Juan Madrigal', 88493012, 'juancito@gmail.com', 1, 'junito91', 199283928)
+--insert into Cliente values(321323, 'Enrique Molina',84738193, 'enriqueM@gmail.com', 1, 'enriquitofeo', 191228393)
+--insert into Cliente values(1244534, 'Mario Bros', 83920496, 'bowserhp@gmail.com', 0, 'mariobrosesito', 472189293)
+--insert into Cliente values(53814223, 'Juanito Ramiro',74829271, 'jaime@gmail.com', 0, 'juanelpro', 923984291)
+--insert into Cliente values(17283920, 'Jimena Quiros',75829105, 'jimenita@gmail.com', 1, 'jimejime', 256482179)
+--insert into Cliente values(5902366, 'Jon Snow',748960381, 'Vheredero@gmail.com', 0, 'loboblanco', 348912012)
+--insert into Cliente values(1829317, 'Jaime Lanister',63849145, 'matareyes@gmail.com', 0, 'bronnesfeo', 328910804)
+--insert into Cliente values(4892837, 'Ishika Mata', 88849371, 'ishikamandam@gmail.com', 1, 'aksd31', 81723198)
+--insert into Cliente values(23618723, 'Maduro Radon', 81293812, 'madurito@gmail.com', 1, 'madurito123', 12371823)
+--insert into Cliente values(23182756, 'Gensen Gold', 85830174, 'suizo@gmail.com', 1, 'yonose', 981739821)
+--insert into Cliente values(596895, 'Maria Ramos',76940174, 'lamasfea@gmail.com', 1, 'jmaira3', 18239182)
+
 
 --AEROPUERTOS
 
@@ -172,23 +175,23 @@ insert into Aeropuerto values('Gwalior', 'India', 'IN')
 --ESTUDIANTES
 
 /*
-insert into Estudiante values(17283920, 201509974, 100)
-insert into Estudiante values(23182756, 201509974, 100)
-insert into Estudiante values(4892837, 201509974, 100)
-insert into Estudiante values(596895, 201509974, 100)
-insert into Estudiante values(12312312, 201509974, 100)
-insert into Estudiante values(321323, 201509974, 100)
+insert into Estudiante values(17283920, 17283920, 100)
+insert into Estudiante values(23182756, 23182756, 100)
+insert into Estudiante values(4892837, 4892837, 100)
+insert into Estudiante values(596895, 596895, 100)
+insert into Estudiante values(12312312, 12312312, 100)
+insert into Estudiante values(321323, 321323, 100)
 */
 
 --UNIVERSIDAD
 
 /*
-insert into Universidad values(17283920, Jimena Quiros)
-insert into Universidad values(23182756, Gensen Gold)
-insert into Universidad values(4892837, Ishika Mata)
-insert into Universidad values(596895, Maria Ramos)
-insert into Universidad values(12312312, Juan Madrigal)
-insert into Universidad values(321323, Enrique Molina)
+insert into Universidad values(17283920, 'Jimena Quiros')
+insert into Universidad values(23182756, 'Gensen Gold')
+insert into Universidad values(4892837, 'Ishika Mata')
+insert into Universidad values(596895, 'Maria Ramos')
+insert into Universidad values(12312312, 'Juan Madrigal')
+insert into Universidad values(321323, 'Enrique Molina')
 */
 
 --MALETAS
@@ -220,27 +223,27 @@ insert into Maleta values('G8293', 596895)
 --PESO DE MALETAS
 
 /*
-insert into Maleta values('A12312' , 100)
-insert into Maleta values('B12312', 199)
-insert into Maleta values('A783', 60)
-insert into Maleta values('B271', 10)
-insert into Maleta values('C9831', 40)
-insert into Maleta values('D1231', 124)
-insert into Maleta values('A41231', 53)
-insert into Maleta values('L12313', 120)
-insert into Maleta values('P82182', 10)
-insert into Maleta values('N128312', 20)
-insert into Maleta values('J2183', 83)
-insert into Maleta values('A19234', 59)
-insert into Maleta values('A01923', 317)
-insert into Maleta values('A61934', 182)
-insert into Maleta values('J93714', 231)
-insert into Maleta values('L71834', 82)
-insert into Maleta values('S918293', 48)
-insert into Maleta values('A813', 56)
-insert into Maleta values('H371', 85)
-insert into Maleta values('HK78172', 95)
-insert into Maleta values('G8293', 68)
+insert into PMaleta values('A12312' , 100)
+insert into PMaleta values('B12312', 199)
+insert into PMaleta values('A783', 60)
+insert into PMaleta values('B271', 10)
+insert into PMaleta values('C9831', 40)
+insert into PMaleta values('D1231', 124)
+insert into PMaleta values('A41231', 53)
+insert into PMaleta values('L12313', 120)
+insert into PMaleta values('P82182', 10)
+insert into PMaleta values('N128312', 20)
+insert into PMaleta values('J2183', 83)
+insert into PMaleta values('A19234', 59)
+insert into PMaleta values('A01923', 317)
+insert into PMaleta values('A61934', 182)
+insert into PMaleta values('J93714', 231)
+insert into PMaleta values('L71834', 82)
+insert into PMaleta values('S918293', 48)
+insert into PMaleta values('A813', 56)
+insert into PMaleta values('H371', 85)
+insert into PMaleta values('HK78172', 95)
+insert into PMaleta values('G8293', 68)
 */
 
 --TIQUETES POR AHORA SIN TIPO DE AVION
@@ -276,16 +279,15 @@ insert into Avion values('X8213', 400)
 insert into Avion values('Z120', 300)
 insert into Avion values('Y40', 350)
 insert into Avion values('X189', 200)
-
 */
 
 --AVION CLASES
 
 /*
-insert into Avion values('X8213', 50, 350)
-insert into Avion values('Z120 25, 275)
-insert into Avion values('Y40', 30, 320)
-insert into Avion values('X189', 10, 190)
+insert into TAvion values('X8213', 50, 350)
+insert into TAvion values('Z120', 25, 275)
+insert into TAvion values('Y40', 30, 320)
+insert into TAvion values('X189', 10, 190)
 */
 
 --ASISTENTE DE VUELO
@@ -306,53 +308,53 @@ insert into AsistenteVuelo values('AV10', 'decimoE@gmail.com')
 --NOMBRE DEL ASISTENTE DE VUELO
 
 /*
-insert into AsistenteVuelo values('AV1', Juan Amaño)
-insert into AsistenteVuelo values('AV2', 'Raquel Sanchez')
-insert into AsistenteVuelo values('AV3', 'Mauricio Campos')
-insert into AsistenteVuelo values('AV4', 'Arnoldo Montero')
-insert into AsistenteVuelo values('AV5', 'Leonardo Delgado')
-insert into AsistenteVuelo values('AV6', 'Aquiles Mando')
-insert into AsistenteVuelo values('AV7', 'Oscar Arias')
-insert into AsistenteVuelo values('AV8', 'Miguel Trujillo')
-insert into AsistenteVuelo values('AV9', 'Alejandro Fernandez')
-insert into AsistenteVuelo values('AV10', 'Eva Corrales')
+insert into NAsistenteVuelo values('AV1', 'Juan Amaño')
+insert into NAsistenteVuelo values('AV2', 'Raquel Sanchez')
+insert into NAsistenteVuelo values('AV3', 'Mauricio Campos')
+insert into NAsistenteVuelo values('AV4', 'Arnoldo Montero')
+insert into NAsistenteVuelo values('AV5', 'Leonardo Delgado')
+insert into NAsistenteVuelo values('AV6', 'Aquiles Mando')
+insert into NAsistenteVuelo values('AV7', 'Oscar Arias')
+insert into NAsistenteVuelo values('AV8', 'Miguel Trujillo')
+insert into NAsistenteVuelo values('AV9', 'Alejandro Fernandez')
+insert into NAsistenteVuelo values('AV10', 'Eva Corrales')
 */
 
 --ASIENTO DE AVION
 
 /*
-insert into Asiento values(T11, 100, 'E')
-insert into Asiento values(T21, 49, 'P')
-insert into Asiento values(T31, 20, 'P')
-insert into Asiento values(T24, 10, 'P')
-insert into Asiento values(T35, 390, 'E')
-insert into Asiento values(T36, 200, 'E')
-insert into Asiento values(T163, 3, 'P')
-insert into Asiento values(T41, 129, 'E')
-insert into Asiento values(T49, 104, 'E')
-insert into Asiento values(T25, 102, 'E')
-insert into Asiento values(T294, 150, 'E')
-insert into Asiento values(T42, 160, 'E')
-insert into Asiento values(T44, 123, 'E')
-insert into Asiento values(T22, 93, 'E')
-insert into Asiento values(T33, 59, 'E')
-insert into Asiento values(T29, 42, 'P')
-insert into Asiento values(T289, 152, 'E')
-insert into Asiento values(T382, 40, 'P')
-insert into Asiento values(T412, 294, 'E')
-insert into Asiento values(T312, 185, 'E')
-insert into Asiento values(T212, 285, 'E')
+insert into Asiento values('T11', 100, 'E')
+insert into Asiento values('T21', 49, 'P')
+insert into Asiento values('T31', 20, 'P')
+insert into Asiento values('T24', 10, 'P')
+insert into Asiento values('T35', 390, 'E')
+insert into Asiento values('T36', 200, 'E')
+insert into Asiento values('T163', 3, 'P')
+insert into Asiento values('T41', 129, 'E')
+insert into Asiento values('T49', 104, 'E')
+insert into Asiento values('T25', 102, 'E')
+insert into Asiento values('T294', 150, 'E')
+insert into Asiento values('T42', 160, 'E')
+insert into Asiento values('T44', 123, 'E')
+insert into Asiento values('T22', 93, 'E')
+insert into Asiento values('T33', 59, 'E')
+insert into Asiento values('T29', 42, 'P')
+insert into Asiento values('T289', 152, 'E')
+insert into Asiento values('T382', 40, 'P')
+insert into Asiento values('T412', 294, 'E')
+insert into Asiento values('T312', 185, 'E')
+insert into Asiento values('T212', 285, 'E')
 */
 
---ESCALA
+--ESCALA REVISAR DATE
 
-/*
-insert into Escala values('E1', 3, 4359, 'Anapa', 'Lanzarote', 15/02, 15/02, 8)
-insert into Escala values('E2', 3, 5605, 'Lanzarote', 'Ciudad Obregon', 16/02, 16/02, 10)
-insert into Escala values('E3', 3, 2132, 'Ciudad Obregon', 'Juan Santamaría', 17/02, 17/02, 4)
-insert into Escala values('E4', 2, 3236, 'Calama El Loa', 'Juan Santamaría', 10/12, 10/12, 6)
-insert into Escala values('E5', 2, 2900.8 , 'Juan Santamaría', 'Nashville International', 10/02, 11/02, 5)
-*/
+
+insert into Escala values('E1', 3, 4359, 'Anapa', 'Lanzarote', '02/15/2018', '02/15/2018', 8)
+insert into Escala values('E2', 3, 5605, 'Lanzarote', 'Ciudad Obregon', '02/16/2018', '02/16/2018', 10)
+insert into Escala values('E3', 3, 2132, 'Ciudad Obregon', 'Juan Santamaría', '02/17/2018', '02/17/2018', 4)
+insert into Escala values('E4', 2, 3236, 'Calama El Loa', 'Juan Santamaría', '12/10/2018','12/10/2018', 6)
+insert into Escala values('E5', 2, 2900.8 , 'Juan Santamaría', 'Nashville International', '12/10/2018', '12/11/2018', 5)
+
 
 -- CANTIDAD DE ESCALAS
 
@@ -384,5 +386,5 @@ insert into Reservacion values('R5', 'Z120', '596895')
 --PROMOCION
 
 /*
-insert into Promocion values('P1', 200, 16/02)
+insert into Promocion values('P1', 'V1', 200, '02/16/2018')
 */
