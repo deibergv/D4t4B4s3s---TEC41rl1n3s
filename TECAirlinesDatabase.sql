@@ -1,4 +1,4 @@
- --CREATE DATABASE TECAirlines
+ CREATE DATABASE TECAirlines
  USE TECAirlines
 
 
@@ -22,7 +22,7 @@ CREATE TABLE Estudiante (
 
 CREATE TABLE Universidad ( 
   Carné INTEGER NOT NULL,
-  NombreComp VARCHAR(50) NOT NULL,
+  NombreU VARCHAR(50) NOT NULL,
   PRIMARY KEY(Carné)
 );
 
@@ -60,7 +60,6 @@ CREATE TABLE TAvion (
 CREATE TABLE AsistenteVuelo (
   ID VARCHAR(50) NOT NULL,
   Correo VARCHAR(50) NOT NULL,
-  Nombre VARCHAR(50) NOT NULL,
   PRIMARY KEY(ID)
 );
 
@@ -69,12 +68,6 @@ CREATE TABLE Asiento (
 	Numero INTEGER NOT NULL,
 	Categoría VARCHAR(50) NOT NULL,
 	PRIMARY KEY(IDTiquete)
-);
-
-CREATE TABLE CEscala(
-	IDEscala VARCHAR(50) NOT NULL,
-	IDVuelo VARCHAR(50) NOT NULL,
-	PRIMARY KEY(IDEscala)
 );
 
 CREATE TABLE Vuelo (
@@ -95,6 +88,7 @@ CREATE TABLE Aeropuerto (
 CREATE TABLE Reservacion (
   IDReservacion VARCHAR(50) NOT NULL,
   IDPropietario VARCHAR(50) NOT NULL,
+  Estado VARCHAR(50) NOT NULL,
   PRIMARY KEY(IDReservacion)
 );
 
@@ -124,6 +118,18 @@ CREATE TABLE Escala (
 	PRIMARY KEY(IDEscala)
 );
 
+CREATE TABLE CEscala(
+	IDEscala VARCHAR(50) NOT NULL,
+	IDVuelo VARCHAR(50) NOT NULL,
+	PRIMARY KEY(IDEscala)
+);
+
+CREATE TABLE Ruta(
+	IDVuelo VARCHAR(50) NOT NULL,
+	AeInicial VARCHAR(50) NOT NULL,
+	AeFinal VARCHAR(50) NOT NUll,
+	PRIMARY KEY(IDVuelo)
+);
 
 --CLIENTE
 
@@ -178,12 +184,12 @@ insert into Estudiante values(321323, 321323, 100)
 
 --UNIVERSIDAD
 
-insert into Universidad values(17283920, 'Jimena Quiros')
-insert into Universidad values(23182756, 'Gensen Gold')
-insert into Universidad values(4892837, 'Ishika Mata')
-insert into Universidad values(596895, 'Maria Ramos')
-insert into Universidad values(12312312, 'Juan Madrigal')
-insert into Universidad values(321323, 'Enrique Molina')
+insert into Universidad values(17283920, 'TEC')
+insert into Universidad values(23182756, 'UCR')
+insert into Universidad values(4892837, 'TEC')
+insert into Universidad values(596895, 'UNA')
+insert into Universidad values(12312312, 'UCR')
+insert into Universidad values(321323, 'TEC')
 
 --MALETAS
 
@@ -273,16 +279,16 @@ insert into TAvion values('X189', 10, 190)
 
 --ASISTENTE DE VUELO
 
-insert into AsistenteVuelo values('AV1', 'primerE@gmail.com', 'Juan Amaño')
-insert into AsistenteVuelo values('AV2', 'segundE@gmail.com', 'Raquel Sanchez')
-insert into AsistenteVuelo values('AV3', 'tercerE@gmail.com', 'Mauricio Campos')
-insert into AsistenteVuelo values('AV4', 'cuartoE@gmail.com', 'Arnoldo Montero')
-insert into AsistenteVuelo values('AV5', 'quintoE@gmail.com', 'Leonardo Delgado')
-insert into AsistenteVuelo values('AV6', 'sextoE@gmail.com', 'Aquiles Mando')
-insert into AsistenteVuelo values('AV7', 'setimoE@gmail.com', 'Oscar Arias')
-insert into AsistenteVuelo values('AV8', 'octavoE@gmail.com', 'Miguel Trujillo')
-insert into AsistenteVuelo values('AV9', 'novenoE@gmail.com', 'Alejandro Fernandez')
-insert into AsistenteVuelo values('AV10', 'decimoE@gmail.com', 'Eva Corrales')
+insert into AsistenteVuelo values('AV1', 'primerE@gmail.com')
+insert into AsistenteVuelo values('AV2', 'segundE@gmail.com')
+insert into AsistenteVuelo values('AV3', 'tercerE@gmail.com')
+insert into AsistenteVuelo values('AV4', 'cuartoE@gmail.com')
+insert into AsistenteVuelo values('AV5', 'quintoE@gmail.com')
+insert into AsistenteVuelo values('AV6', 'sextoE@gmail.com')
+insert into AsistenteVuelo values('AV7', 'setimoE@gmail.com')
+insert into AsistenteVuelo values('AV8', 'octavoE@gmail.com')
+insert into AsistenteVuelo values('AV9', 'novenoE@gmail.com')
+insert into AsistenteVuelo values('AV10', 'decimoE@gmail.com')
 
 --ASIENTO DE AVION
 
@@ -331,11 +337,11 @@ insert into Vuelo values('V2', 400, 300, 600)
 
 --RESERVACION REVISAR QUE EL TIPO DE AVION SE VA A REPETIR
 
-insert into Reservacion values('R1', '17283920')
-insert into Reservacion values('R2', '1244534')
-insert into Reservacion values('R3', '596895')
-insert into Reservacion values('R4', '1829317')
-insert into Reservacion values('R5', '596895')
+insert into Reservacion values('R1', '17283920', 'Reservo')
+insert into Reservacion values('R2', '1244534', 'Reservo')
+insert into Reservacion values('R3', '596895', 'Reservo')
+insert into Reservacion values('R4', '1829317', 'Reservo')
+insert into Reservacion values('R5', '596895', 'Reservo')
 
 --RESERVACION CON TIPO DE AVION
 
@@ -348,3 +354,91 @@ insert into TReservacion values('R5', 'Z120')
 --PROMOCION
 
 insert into Promocion values('P1', 'V1', 200, '02/16/2018')
+
+
+--RUTAS
+
+insert into Ruta values('V1', 'Anapa', 'Juan Santamaría')
+insert into Ruta values('V2', 'Comodoro Arturo Merino Benítez', 'Nashville International')
+
+
+--PROCEDIMIENTOS
+CREATE PROC CrearCliente
+	@Pasaporte
+	@NombreComp
+	@Telefono
+	@Correo
+	@Estudiante
+	@Contraseña
+	@NTarjeta
+
+AS
+BEGIN
+	insert into Cliente values(@Pasaporte, @NombreComp, @Telefono, @Correo, @Estudiante, @Contraseña, @NTarjeta)
+	IF @Estudiante == 1?
+		insert into Estudiante values ( @Pasaporte, @Carné, 0)
+END
+GO
+
+
+
+CREATE PROC NuevaReservacion
+	@Pasaporte
+	@TAvion
+	@Vuelo
+	@PTotalM
+	@NAsiento
+	@Categoria
+
+AS
+BEGIN
+	insert into Reservacion values(@Pasaporte, 'Reservo')
+	insert into Maleta values( @Pasaporte, @PTotalM)
+	insert into Asiento(@NAsiento, @Categoria)
+
+END
+GO
+
+
+CREATE PROC NuevaAsistVuelo
+	@Correo
+AS
+BEGIN
+	insert into AsistenteVuelo valeus(@Correo)
+END
+GO
+
+CREATE PROC NuevoVuelo
+	@Precio
+	@CantPasajeros
+	@CantMaletas
+	@NEscalas
+	@Millas
+	@AeSalida
+	@AeLlegada
+	@FechaSalida
+	@FechaLlegada
+
+AS
+BEGIN
+	into insert Vuelo values(@Precio,@CantiPasajeros, @CantMaletas)
+	into insert Escala values(@NEscalas, @Millas, @AeSalida, @AeLlegada, @FechaSalida, @FechaLlegada)
+	into insert Ruta values(@AeSalida, @AeLlegada)
+
+END
+GO
+
+
+CREATE PROC NuevoAvion
+	@Tipo
+	@AsientoDisponibles
+	@PrimClase
+	@EClase
+
+AS
+BEGIN
+	insert into Avion values(@Tipo, @AsientoDisponibles)
+	insert into TAvion values(@Tipo, @PrimClase, @EClase)
+
+END
+GO
