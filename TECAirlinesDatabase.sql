@@ -348,13 +348,13 @@ insert into Asiento values('T212', 285, 'E')
 
 --ESCALA REVISAR DATE
 
-
+/*
 insert into Escala values('E1', 3, 4359, 'Anapa', 'Lanzarote', '02/15/2018', '02/15/2018', 8)
 insert into Escala values('E2', 3, 5605, 'Lanzarote', 'Ciudad Obregon', '02/16/2018', '02/16/2018', 10)
 insert into Escala values('E3', 3, 2132, 'Ciudad Obregon', 'Juan Santamaría', '02/17/2018', '02/17/2018', 4)
 insert into Escala values('E4', 2, 3236, 'Calama El Loa', 'Juan Santamaría', '12/10/2018','12/10/2018', 6)
 insert into Escala values('E5', 2, 2900.8 , 'Juan Santamaría', 'Nashville International', '12/10/2018', '12/11/2018', 5)
-
+*/
 
 -- CANTIDAD DE ESCALAS
 
