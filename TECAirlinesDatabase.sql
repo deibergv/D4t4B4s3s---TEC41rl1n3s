@@ -1,4 +1,4 @@
--- Script de Populacion de tablas
+ -- Script de Populacion de tablas
 -- 08/04/19
 -- Deiber / Anthony
 
@@ -134,51 +134,35 @@ CREATE TABLE Ruta(
 	PRIMARY KEY(IDVuelo)
 );
 
+
 --PROCEDIMIENTOS
-
-CREATE PROC TEST--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	@NombreComp VARCHAR(50)
-	AS
-	SELECT * FROM Cliente WHERE NombreComp = @NombreComp --Contenido del procedimiento
-
-exec TEST 'Juan Madrigal' --Ejecucion pasando los valores
-
-
-	--							@Pasaporte (auto creo), @NombreComp,    @Tel,		@Correo,			@Si es estudiante o no, @Contra,	 @#tarjeta
--- insert into Cliente values(12312312,				  'Juan Madrigal', 88493012, 'juancito@gmail.com',  1,						'junito91',	 199283928)
-
-
-
-
-
-
-
-
-
-
-
+--PROCEDIMIENTO PARA CREAR NUEVO CLIENTE
 CREATE PROC CrearCliente
-	@Pasaporte VARCHAR(50),
+	@Pasaporte INTEGER,
 	@NombreComp VARCHAR(50),
 	@Telefono INTEGER,
 	@Correo VARCHAR(50),
 	@Estudiante BIT,
 	@Contraseña VARCHAR(50),
-	@NTarjeta INTEGER
+	@NTarjeta INTEGER,
+	@NombreU VARCHAR(50),
+	@Carne VARCHAR(50),
+	@Millas INTEGER
 
 AS
 	insert into Cliente values(@Pasaporte, @NombreComp, @Telefono, @Correo, @Estudiante, @Contraseña, @NTarjeta)
-	IF @Estudiante = 1?
-		insert into Estudiante values ( @Pasaporte, @Carné, 0)
+	IF
+		@Estudiante = 1
+		insert into Estudiante values ( @Pasaporte, @Carne, 0)
 
 
+EXEC CrearCliente 60431231, 'Carlos Araya', 84283249, 'charlie@gmail.com', 1, 'jasdo', 2512839, 'TEC', '2015099874', 0
+EXEC CrearCliente 50431231, 'Carlos Angulo', 85283249, 'charlieE@gmail.com', 0, '', 0, '', '', 0
 
 
-
-		-----------------------------------------------------------------------------------
-
+--PROCEDIMIENTO PARA CREAR UNA RESERVACION
 CREATE PROC NuevaReservacion
-	@Pasaporte VARCHAR(50), -- le debe ser inyectado el pasaporte del cliente que hace la reservacion
+	@Pasaporte INTEGER, -- le debe ser inyectado el pasaporte del cliente que hace la reservacion
 	@TAvion VARCHAR(50), -- supongo que el tipo de avion
 	@Vuelo VARCHAR(50), ----- uso????
 	@PTotalM INTEGER, -- supongo que preguntar con "count" la cantidad total de maletas asociadas al cliente....?
@@ -189,58 +173,40 @@ AS
 	insert into Reservacion values(@Pasaporte, 'Reservo')
 	-- @PTotalM = count maletas de cliente
 	insert into Maleta values( @Pasaporte, @PTotalM)
-	insert into Asiento (@NAsiento, @Categoria)
+	insert into Asiento values(@NAsiento, @Categoria)
 
 	-- agregar Try - catch y que devuelva error si no se pudo: 'Hubo un problema con la reservación'
 
-exec NuevaReservacion PASAPORTE, TIPOAVION, xIDVUELOx,  --Ejecucion pasando los valores
-
-
-
-
-
-
-
-
-
-
+--PROCEDIMIENTO PARA AGREGAR UN NUEVO ASISTENTE DE VUELo
 CREATE PROC NuevaAsistVuelo
-	@Correo
+	@Correo VARCHAR(50)
 AS
-	insert into AsistenteVuelo valeus(@Correo)
+	insert into AsistenteVuelo values(@Correo)
 
-
+--PROCEDIMIENTO PARA CREAR UN NUEVO VUELO
 CREATE PROC NuevoVuelo
-	@Precio
-	@CantPasajeros
-	@CantMaletas
-	@NEscalas
-	@Millas
-	@AeSalida
-	@AeLlegada
-	@FechaSalida
-	@FechaLlegada
+	@Precio INTEGER,
+	@CantPasajeros INTEGER,
+	@CantMaletas INTEGER,
+	@NEscalas INTEGER,
+	@Millas INTEGER,
+	@AeSalida VARCHAR(50),
+	@AeLlegada VARCHAR(50),
+	@FechaSalida DATETIME,
+	@FechaLlegada DATETIME
 
 AS
-BEGIN
-	into insert Vuelo values(@Precio,@CantiPasajeros, @CantMaletas)
-	into insert Escala values(@NEscalas, @Millas, @AeSalida, @AeLlegada, @FechaSalida, @FechaLlegada)
-	into insert Ruta values(@AeSalida, @AeLlegada)
+	 insert into Vuelo values(@Precio, @CantPasajeros, @CantMaletas)
+	 insert into Escala values(@NEscalas, @Millas, @AeSalida, @AeLlegada, @FechaSalida, @FechaLlegada)
+	 insert into Ruta values(@AeSalida, @AeLlegada)
 
-END
-GO
-
-
+--PROCEDIMIENTO PARA CREAR UN NUEVO AVION
 CREATE PROC NuevoAvion
-	@Tipo
-	@AsientoDisponibles
-	@PrimClase
-	@EClase
+	@Tipo VARCHAR(50),
+	@AsientoDisponibles BIT,
+	@PrimClase VARCHAR(50),
+	@EClase VARCHAR(50)
 
 AS
-BEGIN
 	insert into Avion values(@Tipo, @AsientoDisponibles)
 	insert into TAvion values(@Tipo, @PrimClase, @EClase)
-
-END
-GO
