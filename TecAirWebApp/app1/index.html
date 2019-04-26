@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="root">
+
+<head>
+  <meta charset="utf-8">
+  <title>TECAirlines</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="appstyle.css">
+
+  <!-- Dependencies -->
+  <script src="lib/jquery/dist/jquery.js"></script>
+  <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular-route/angular-route.js"></script>
+  <script src="lib/angular-animate/angular-animate.js"></script>
+  <script src="lib/angular-resource/angular-resource.js"></script>
+  <script src="lib/angular-touch/angular-touch.js"></script>
+  <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+  <script src="lib/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+
+  <script src="app.module.js"></script>
+  <script src="app.config.js"></script>
+
+  <!-- Core module -->
+  <script src="core/core.module.js"></script>
+  <script src="core/version/version.module.js"></script>
+  <script src="core/version/version.value.js"></script>
+  <script src="core/version/interpolate-filter.js"></script>
+  <script src="core/version/version-directive.js"></script>
+
+  <!-- Main page -->
+  <script src="home/home.module.js"></script>
+  <script src="home/home.component.js"></script>
+  <!-- <script src="client/client.config.js"></script> -->
+  <!-- <script src="client/home/home.module.js"></script>
+  <script src="client/home/home.component.js"></script> -->
+</head>
+
+<body>
+  <div class="global-wrap">
+    <header id="main-header">
+      <div class="header-top">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-3">
+                      <a class="logo" href="#!/tecairlines/home">
+                          <img src="img/logo.png" alt="TECAirline logo" title="TEC Airlines" />
+                      </a>
+                  </div>
+                  <div class="col-md-3 col-md-offset-2">
+                      <a href="#!/tecairlines/home">
+                          <h3>TEC Airlines</h3>
+                      </a>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="top-user-area clearfix">
+                          <ul class="top-user-area-list list list-horizontal list-border">
+                              <li>
+                                  <!-- <a href="login-register.html"> -->
+                                  Inicar sesión / Registrarse
+                                  <!-- </a> -->
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="container">
+          <nav class="navbar navbar-default" role="navigation">
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">Menu</a>
+              </div>
+              <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+                  <ul class="nav navbar-nav">
+                      <li><a href="#!/tecairlines/home">
+                          Inicio
+                      </a></li>
+                      <li><a href="#">
+                          Vuelos
+                      </a></li>
+                  </ul>
+              </div>
+          </nav>
+          <!-- <div class="nav">
+              <ul class="slimmenu" id="slimmenu">
+                  <li class="active">
+                  <a href="#!/tecairlines/home">
+                  Inicio
+                  </a>
+                  </li>
+                  <li>
+                  <a href="buscar-vuelos.html"> 
+                  Vuelos
+                  </a> 
+                  </li>
+              </ul>
+          </div> -->
+      </div>
+    </header>
+    
+    <div ng-view></div>
+    
+    <!-- holder -->
+    <div class="bg-holder">
+      <div class="bg-mask"></div>
+      <div class="bg-parallax" style="background-image:url(img/register.jpeg);"></div>
+      <div class="bg-content">
+        <div class="container">
+            <div class="gap gap-big text-center text-white">
+
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- holder -->
+    
+    <!-- footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="row row-wrap">
+                <!-- <div class="col-md-3">
+                        <p class="mb20">Puedes seguirnos en nuestras redes sociales</p>
+                        <ul class="list list-horizontal list-space">
+                            <li>
+                                <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                            </li>
+                            <li>
+                                <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                            </li>
+                        </ul>
+                    </div> -->
+    
+                <div class="col-md-3">
+    
+    
+                </div>
+                <!-- <div class="col-md-2">
+                        <ul class="list list-footer">
+                            <li><a href="#">Acerca de</a>
+                            </li>
+                        </ul>
+                    </div> -->
+                <div class="col-md-4">
+                    <h4>¿Tienes preguntas?</h4>
+                    <h4 class="text-color">+506 8888-8888</h4>
+                    <h4><a href="#" class="text-color">support@tecairlines.com</a></h4>
+                    <p>Con gusto le atenderemos.</p>
+                </div>
+    
+            </div>
+        </div>
+    </footer>
+  </div>
+  <!-- <div>TECAirlines app: v<span app-version></span></div> -->
+
+</body>
+</html>
