@@ -1,0 +1,151 @@
+<!-- TOP AREA -->
+<!-- <uib-carousel class="top-area show-onload"> -->
+<div class="top-area show-onload">
+    <div uib-carousel active="0" interval="5000" no-wrap="false"
+        template-url="lib/angular-ui-bootstrap/template/carousel/carousel.html">
+        <div uib-slide index="0" template-url="lib/angular-ui-bootstrap/template/carousel/slide.html">
+            <img class="bg-img" ng-src="img/backgrounds/beach.jpg">
+            <!-- <img class="bg-img" style="background-image:url(img/backgrounds/beach.jpg);"> -->
+            <div class="carousel-caption">
+                <h4>Viaje a Atlanta</h4>
+                <p>desde $2600</p>
+                <!-- <a class="btn btn-white btn-ghost" href="#"><i class="fa fa-angle-right"></i> Explore</a> -->
+            </div>
+        </div>
+        <div uib-slide index="1" template-url="lib/angular-ui-bootstrap/template/carousel/slide.html">
+            <img class="bg-img" ng-src="img/backgrounds/flowers.jpg">
+            <!-- <img class="bg-img" style="background-image:url(img/backgrounds/bike.jpg);"> -->
+            <div class="carousel-caption">
+                <h4>Viaje a Armsterdan</h4>
+                <p>desde $2400</p>
+                <!-- <a class="btn btn-white btn-ghost" href="#"><i class="fa fa-angle-right"></i> Explore</a> -->
+            </div>
+        </div>
+        <div uib-slide index="2" template-url="lib/angular-ui-bootstrap/template/carousel/slide.html">
+            <img class="bg-img" ng-src="img/backgrounds/phone.jpg">
+            <!-- <img class="bg-img" style="background-image:url(img/backgrounds/phone.jpg);"> -->
+            <div class="carousel-caption">
+                <h4>Viaje a Madrid</h4>
+                <p>desde $2600</p>
+                <!-- <a class="btn btn-white btn-ghost" href="#"><i class="fa fa-angle-right"></i> Explore</a> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="owl-carousel owl-slider owl-carousel-area" id="owl-carousel-slider">
+        <div class="bg-holder full text-center text-white">					
+            <div class="bg-mask"></div>
+            <div class="bg-img" style="background-image:url(https://frander.xyz/img/madrid.jpg);"></div>
+            <div class="bg-front full-center">
+                <div class="owl-cap">
+                    <h1 class="owl-cap-title fittext">Viaje a Madrid</h1>
+                    <div class="owl-cap-price"><small>desde</small>
+                        <h5>$2600</h5>
+                    </div><a class="btn btn-white btn-ghost" href="#"><i class="fa fa-angle-right"></i> Explore</a>
+                </div>
+            </div>
+        </div>                 
+    </div> -->
+<!-- END TOP AREA  -->
+
+<!-- área media -->
+<div class="container">
+    <div class="search-tabs search-tabs-bg search-tabs-nobox search-tabs-lift-top">
+        <div class="tabbable">
+            <div class="nav tab-content">
+                <div class="tab-pane fade in active" id="tab-2">
+                    <h2> <br> Buscar vuelos</h2>
+                    <form>
+                        <uib-tabset active="active" template-url="lib/angular-ui-bootstrap/template/tabs/tabset.html">
+                            <uib-tab index="0" heading="Ida y vuelta"
+                                template-url="lib/angular-ui-bootstrap/template/tabs/tab.html">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-lg form-group-icon-left"><i
+                                                        class="fa fa-map-marker input-icon"></i>
+                                                    <label>De</label>
+                                                    <input class="form-control" placeholder="San José (SJO)"
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-lg form-group-icon-left"><i
+                                                        class="fa fa-map-marker input-icon"></i>
+                                                    <label>Hacia</label>
+                                                    <input class="form-control" placeholder="Destino" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-daterange" data-date-format="M d, D">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-lg form-group-icon-left"><i
+                                                            class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                                        <label>Salida</label>
+                                                        <input class="form-control" name="start" type="text" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-lg form-group-icon-left"><i
+                                                            class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                                        <label>Regreso</label>
+                                                        <input class="form-control" name="end" type="text" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab index="1" heading="Solo ida"
+                                template-url="lib/angular-ui-bootstrap/template/tabs/tab.html">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-lg form-group-icon-left"><i
+                                                        class="fa fa-map-marker input-icon"></i>
+                                                    <label>De</label>
+                                                    <input class="form-control" placeholder="San José (SJO)"
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-lg form-group-icon-left"><i
+                                                        class="fa fa-map-marker input-icon"></i>
+                                                    <label>Hacia</label>
+                                                    <input class="form-control" placeholder="Destino" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-daterange" data-date-format="M d, D">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-lg form-group-icon-left"><i
+                                                            class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                                        <label>Salida</label>
+                                                        <input class="form-control" name="start" type="text" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                        </uib-tabset>
+                        <button class="btn btn-primary btn-lg" type="submit">Buscar vuelos</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gap gap-small"></div>
+</div>
+
+<!-- área media -->
