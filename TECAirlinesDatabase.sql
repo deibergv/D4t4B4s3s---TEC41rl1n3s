@@ -73,7 +73,7 @@ CREATE TABLE TAvion (
 CREATE TABLE AsistenteVuelo (
   IDAsist INTEGER IDENTITY(1,1) NOT NULL,
   Correo VARCHAR(50) NOT NULL,
-  PRIMARY KEY(ID)
+  PRIMARY KEY(IDAsist)
 );
 
 CREATE TABLE Asiento (
@@ -267,41 +267,53 @@ CREATE PROC AgregarAsiento
 
 AS
 BEGIN
-	DECLARE @ADisponibles BIT
-	SELECT @ADisponibles = AsientosDisponibles FROM Avion
+	-- CONECTA EL ID DE RESERVACION QUE LE ENTRA CON EL ID DE RESERVACION DE LA BASE DE DATOS
 	DECLARE @ReservacionID INTEGER
-	SELECT @ReservacionID = IDReservacion FROM TReservacion
-	DECLARE @RIDAvion INTEGER
-	SELECT @RIDAvion = IDAvion FROM TReservacion
-	DECLARE @AvionID INTEGER
-	SELECT @AvionID = IDAvion FROM TAvion
+	SELECT @ReservacionID = IDReservacion FROM TReservacion WHERE @IDReservacion = IDReservacion
+	-- CONECTA EL ID DEL TIQUETE QUE LE ENTRA CON EL ID DEL TIQUETE DE LA BASE DE DATOS
 	DECLARE @TiqueteID INTEGER
-	SELECT @TiqueteID = IDTiquete FROM Tiquete
-	DECLARE @TiqueteRID INTEGER
-	SELECT @TiqueteRID = IDReservacion FROM Tiquete
+	SELECT @TiqueteID = IDTiquete FROM Tiquete WHERE @IDTiquete = IDTiquete
+	--CONECTA CON IDAVION DE TRESERVACION CON LA EL ID DE LA RESERVACION DE ENTRADA
+	DECLARE @IDAvion INTEGER
+	SELECT @IDAvion = IDAvion FROM TReservacion WHERE @ReservacionID = TReservacion.IDReservacion
+	-- CONECTA IDAVION DE TAVION CON IDAVION DE TRESERVACION
+	DECLARE @TAvionID INTEGER
+	SELECT @TAvionID = IDAvion FROM TAvion WHERE @IDAvion = IDAvion
+	-- CONECTA IDAVION DE AVION CON IDAVION DE TRESERVACION
+	DECLARE @AvionID INTEGER
+	SELECT @AvionID = IDAvion FROM Avion WHERE @IDAvion = IDAvion
+	--CONECTA EL ID DEL TIQUETE QUE ENTRO CON EL ID DEL TIQUETE DEL ASIENTO
 	DECLARE @TiqueteAID INTEGER
-	SELECT @TiqueteAID = IDTiquete FROM Asiento
+	SELECT @TiqueteAID = IDTiquete FROM Asiento WHERE @TiqueteID = IDTiquete
+	--CONECTA ASIENTOS DISPONIBLES CON LA ENTRADA
+	DECLARE @ADisponibles BIT
+	SELECT @ADisponibles = AsientosDisponibles FROM Avion WHERE IDAvion = @IDAvion  
 	BEGIN TRY
 		IF @ADisponibles = 1 --1 = TRUE
 			BEGIN UPDATE Avion
-				SET Avion.AsientosTotales += 1
-				WHERE @IDReservacion =  @ReservacionID AND @RIDAvion = @AvionID
+				SET Avion.AsientosTotales = Avion.AsientosTotales + 1
+				WHERE @IDAvion = @AvionID
 			END
 			IF @Categoria = 'P' --PRIMERA CLASE
 				BEGIN UPDATE TAvion
 					SET PrimClase += 1
-					WHERE @AvionID = @RIDAvion AND @ReservacionID = @TiqueteRID AND @TiqueteID = @TiqueteAID
+					WHERE @TAvionID = @AvionID AND @TiqueteID = @TiqueteAID
 				END
 			ELSE
 				BEGIN UPDATE TAvion
 					SET EconClase += 1
-					WHERE @AvionID = @RIDAvion AND @ReservacionID = @TiqueteRID AND @TiqueteID = @TiqueteAID
+					WHERE @TAvionID = @AvionID AND @TiqueteID = @TiqueteAID
 				END
 	END TRY
 	BEGIN CATCH
 		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
 	END CATCH
 END
+
+
+EXEC AgregarAsiento 1, 1, 'P'
+DROP TABLE TAvion, Asiento, Avion
+DROP PROC AgregarAsiento
 				
 
 /*
@@ -350,16 +362,14 @@ END
 		
 */
 
-CREATE PROC Promocion
+CREATE PROC Promo
 AS
 	BEGIN
 		SELECT DISTINCT Vuelo.IDVuelo, AeInicial, AeFinal, Promocion.Costo
 		FROM Promocion, Ruta, Vuelo
-		WHERE Promocion.IDVuelo = Vuelo.IDVuelo AND Vuelo.IDVuelo = Ruta.IDVuelo
+		WHERE Promocion.IDVuelo = Vuelo.IDVuelo AND Vuelo.IDVuelo = Ruta.IDRuta
+	END
 
-			
-		
-		
 
 
 /*
@@ -400,8 +410,6 @@ BEGIN
 	WHERE CEscala.IDEscala = Escala.IDEscala AND CEscala.IDVuelo = Ruta.IDVuelo
 END
 
---PROMOCION
-
 --TRIGGERS
 
 CREATE TRIGGER Historial
@@ -414,5 +422,6 @@ CREATE TRIGGER Historial
   SELECT @Name = NombreComp FROM inserted
   INSERT INTO log_historial VALUES (getdate(), @Passport, @Name)
 
-  DROP TRIGGER Historial
+
+
 
