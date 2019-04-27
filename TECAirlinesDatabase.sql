@@ -130,10 +130,11 @@ CREATE TABLE Promocion (
 );
 
 CREATE TABLE Ruta(
+	IDRuta INTEGER IDENTITY(1,1) NOT NULL,
 	IDVuelo INTEGER NOT NULL,
 	AeInicial VARCHAR(50) NOT NULL,
 	AeFinal VARCHAR(50) NOT NUll,
-	PRIMARY KEY(IDVuelo)
+	PRIMARY KEY(IDRuta)
 );
 
 
@@ -173,22 +174,42 @@ CREATE PROC NuevaReservacion
 	@Vuelo INTEGER,
 	@PTotalM INTEGER, 
 	@NAsiento INTEGER, 
-	@Categoria VARCHAR(50)
+	@Categoria VARCHAR(50),
+	@IDTiquete INTEGER
+
 
 AS
 	BEGIN
-		insert into Reservacion values(@Pasaporte, 'Reservo')
-		insert into Maleta values(@Pasaporte)
-		insert into Asiento values(@NAsiento, @Categoria)
+		BEGIN TRY
+			insert into Reservacion values(@Pasaporte, 'Reservo')
+			insert into Maleta values(@Pasaporte)
+			insert into Asiento values(@IDTiquete, @NAsiento, @Categoria)
+		END TRY
+		BEGIN CATCH
+			SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
+		END CATCH
 	END
 
-	-- agregar Try - catch y que devuelva error si no se pudo: 'Hubo un problema con la reservación'
+
+
+EXEC NuevaReservacion 12892042, 'Z123', 3, 12332, 21, 'P', 10
+
 
 --PROCEDIMIENTO PARA AGREGAR UN NUEVO ASISTENTE DE VUELo
 CREATE PROC NuevaAsistVuelo
 	@Correo VARCHAR(50)
 AS
-	insert into AsistenteVuelo values(@Correo)
+	BEGIN TRY
+		insert into AsistenteVuelo values(@Correo)
+	END TRY
+	BEGIN CATCH
+		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
+	END CATCH
+
+
+
+
+EXEC NuevaAsistVuelo 'deiber@gmail.com'
 
 --PROCEDIMIENTO PARA CREAR UN NUEVO VUELO
 CREATE PROC NuevoVuelo
@@ -204,26 +225,37 @@ CREATE PROC NuevoVuelo
 	@Duracion INTEGER
 
 AS
-	BEGIN
+	BEGIN TRY
 		insert into Vuelo values(@Precio, @CantPasajeros, @CantMaletas)
 		insert into Escala values(@NEscalas, @Millas, @AeSalida, @AeLlegada, @FechaSalida, @FechaLlegada, @Duracion)
-		insert into Ruta values(@AeSalida, @AeLlegada)
-	END
+		insert into Ruta values(1, @AeSalida, @AeLlegada)
+	END TRY
+	BEGIN CATCH
+		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
+	END CATCH
 
 
 
 
-EXEC NuevoVuelo 500, 20, 20, 2, 100, 'Juan Santamaría', 'Ambler', '12/04/2018', '12/04/2014'
+
+EXEC NuevoVuelo 500,300,600,3,5000,'Juan Santamaría', 'Anapa', '12/8/2018', '12/8/2018', 10
+
 --PROCEDIMIENTO PARA CREAR UN NUEVO AVION
 CREATE PROC NuevoAvion
 	@Tipo VARCHAR(50),
 	@AsientoDisponibles BIT,
-	@PrimClase VARCHAR(50),
-	@EClase VARCHAR(50)
+	@PrimClase INTEGER,
+	@EClase INTEGER,
+	@AsientosTotales INTEGER
 
 AS
-	BEGIN
-		insert into Avion values(@Tipo, @AsientoDisponibles)
+	BEGIN TRY
+		insert into Avion values(@Tipo, @AsientoDisponibles, @AsientoDisponibles)
 		insert into TAvion values(@Tipo, @PrimClase, @EClase)
-	END
+	END TRY
+	BEGIN CATCH
+		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
+	END CATCH
 
+
+EXEC NuevoAvion 
