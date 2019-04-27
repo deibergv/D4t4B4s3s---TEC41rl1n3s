@@ -6,3 +6,4 @@ app2/lib/
 tmp
 .DS_Store
 .idea
+*.ini

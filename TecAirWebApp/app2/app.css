@@ -1,1 +1,6 @@
 /* airport css stylesheet */
+
+/* View: Phone list */
+.clients {
+    list-style: none;
+}

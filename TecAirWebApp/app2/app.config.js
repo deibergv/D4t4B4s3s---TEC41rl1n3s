@@ -5,14 +5,13 @@ angular.
   config(['$routeProvider',
     function config($routeProvider) {
       $routeProvider.
-        when('/tecairlines/home', {
-          template: '<client></client>',
-          css: 'client/client.css'
+        when('/tecadmin/home', {
+          template: '<home></home>'
         }).
         // when('/tecairport', {
         //   template: '<airport></airport>',
         //   css: 'airport/airport.css'
         // }).
-        otherwise('/tecairlines/home');
+        otherwise('/tecadmin/home');
     }
 ]);
