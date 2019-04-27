@@ -28,12 +28,12 @@ insert into Estudiante values('321323', 321323, 100)
 
 --UNIVERSIDAD
 
-insert into Universidad values(17283920, 'TEC')
-insert into Universidad values(23182756, 'UCR')
-insert into Universidad values(4892837, 'TEC')
-insert into Universidad values(596895, 'UNA')
-insert into Universidad values(12312312, 'UCR')
-insert into Universidad values(321323, 'TEC')
+insert into Universidad values('17283920', 'TEC')
+insert into Universidad values('23182756', 'UCR')
+insert into Universidad values('4892837', 'TEC')
+insert into Universidad values('596895', 'UNA')
+insert into Universidad values('12312312', 'UCR')
+insert into Universidad values('321323', 'TEC')
 
 --AEROPUERTOS
 
@@ -188,11 +188,11 @@ insert into Asiento values(21, 285, 'E')
 
 --ESCALA REVISAR DATE
 
-insert into Escala values(3, 4359, 'Anapa', 'Lanzarote', '02/15/2018', '02/15/2018', 8)
-insert into Escala values(3, 5605, 'Lanzarote', 'Ciudad Obregon', '02/16/2018', '02/16/2018', 10)
-insert into Escala values(3, 2132, 'Ciudad Obregon', 'Juan Santamaría', '02/17/2018', '02/17/2018', 4)
-insert into Escala values(2, 3236, 'Comodoro Arturo Merino Benítez', 'Juan Santamaría', '12/10/2018','12/10/2018', 6)
-insert into Escala values(2, 2900.8 , 'Juan Santamaría', 'Nashville International', '12/10/2018', '12/11/2018', 5)
+insert into Escala values(4359, 'Anapa', 'Lanzarote', '02/15/2018', '02/15/2018', 8)
+insert into Escala values(5605, 'Lanzarote', 'Ciudad Obregon', '02/16/2018', '02/16/2018', 10)
+insert into Escala values(2132, 'Ciudad Obregon', 'Juan Santamaría', '02/17/2018', '02/17/2018', 4)
+insert into Escala values(3236, 'Comodoro Arturo Merino Benítez', 'Juan Santamaría', '12/10/2018','12/10/2018', 6)
+insert into Escala values(2900.8 , 'Juan Santamaría', 'Nashville International', '12/10/2018', '12/11/2018', 5)
 
 -- CANTIDAD DE ESCALAS
 
@@ -226,6 +226,7 @@ insert into TReservacion values(5, 'Z120')
 --PROMOCION
 
 insert into Promocion values(1, 200, '02/16/2018')
+insert into Promocion values(2, 200, '02/16/2018')
 
 
 --RUTAS

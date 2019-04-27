@@ -6,33 +6,33 @@ CREATE DATABASE TECAirlines
 USE TECAirlines
 
 CREATE TABLE Cliente ( 
-	Pasaporte INTEGER NOT NULL,
+	Pasaporte VARCHAR(50) NOT NULL,
 	NombreComp VARCHAR(50) NOT NULL,
-	Teléfono INTEGER NOT NULL,
+	Telefono INTEGER NOT NULL,
 	Correo VARCHAR(50) NOT NULL,
 	Estudiante BIT NOT NULL,
-	Contraseña VARCHAR(50) NOT NULL,
+	Pass VARCHAR(50) NOT NULL,
 	NTarjeta INTEGER NOT NULL,
 	PRIMARY KEY(Pasaporte)
 );
 
 
 CREATE TABLE Estudiante ( 
-	Carné VARCHAR(50) NOT NULL,
-	Pasaporte INTEGER NOT NULL,
+	Carne VARCHAR(50) NOT NULL,
+	Pasaporte VARCHAR(50) NOT NULL,
 	MillasE INTEGER NOT NULL,
-	PRIMARY KEY(Carné)
+	PRIMARY KEY(Carne)
 );
 
 CREATE TABLE Universidad ( 
-  Carné INTEGER NOT NULL,
+  Carne VARCHAR(50) NOT NULL,
   NombreU VARCHAR(50) NOT NULL,
-  PRIMARY KEY(Carné)
+  PRIMARY KEY(Carne)
 );
 
 CREATE TABLE Aeropuerto ( 
   Nombre VARCHAR(50) NOT NULL,
-  País VARCHAR(50) NOT NULL,
+  Pais VARCHAR(50) NOT NULL,
   CodigoP VARCHAR(5) NOT NULL,
   PRIMARY KEY(Nombre)
 );
@@ -50,27 +50,28 @@ CREATE TABLE PMaleta (
 );
 
 CREATE TABLE Tiquete ( 
-	ID INTEGER IDENTITY(1,1) NOT NULL,
-	IDR INTEGER NOT NULL,
-	PRIMARY KEY(ID)
+	IDTiquete INTEGER IDENTITY(1,1) NOT NULL,
+	IDReservacion INTEGER NOT NULL,
+	PRIMARY KEY(IDTiquete)
 );
 
-CREATE TABLE Avion ( 
-	Tipo VARCHAR(50) NOT NULL,
+CREATE TABLE Avion (
+	IDAvion INTEGER IDENTITY(1, 1) NOT NULL,
 	AsientosDisponibles BIT NOT NULL,
 	AsientosTotales INTEGER NOT NULL,
-	PRIMARY KEY(Tipo)
+	PRIMARY KEY(IDAvion)
 );
 
 CREATE TABLE TAvion ( 
+	IDAvion INTEGER NOT NULL,
 	Tipo VARCHAR(50) NOT NULL,
 	PrimClase INTEGER NOT NULL,
 	EconClase INTEGER NOT NULL,
-	PRIMARY KEY(Tipo)
+	PRIMARY KEY(IDAvion)
 );
 
 CREATE TABLE AsistenteVuelo (
-  ID INTEGER IDENTITY(1,1) NOT NULL,
+  IDAsist INTEGER IDENTITY(1,1) NOT NULL,
   Correo VARCHAR(50) NOT NULL,
   PRIMARY KEY(ID)
 );
@@ -78,13 +79,12 @@ CREATE TABLE AsistenteVuelo (
 CREATE TABLE Asiento (
 	IDTiquete INTEGER,
 	Numero INTEGER NOT NULL,
-	Categoría VARCHAR(50) NOT NULL,
+	Categoria VARCHAR(50) NOT NULL,
 	PRIMARY KEY(IDTiquete)
 );
 
 CREATE TABLE Escala (
 	IDEscala INTEGER IDENTITY(1,1) NOT NULL,
-	Numero INTEGER NOT NULL,
 	Millas INTEGER NOT NULL,
 	AeSalida VARCHAR(50) NOT NULL,
 	AeLlegada VARCHAR(50) NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE Escala (
 	PRIMARY KEY(IDEscala)
 );
 
-CREATE TABLE CEscala(
+CREATE TABLE CEscala (
 	IDEscala INTEGER NOT NULL,
 	IDVuelo INTEGER NOT NULL,
 	PRIMARY KEY(IDEscala)
@@ -110,14 +110,14 @@ CREATE TABLE Vuelo (
 
 CREATE TABLE Reservacion (
   IDReservacion INTEGER IDENTITY(1,1) NOT NULL,
-  IDPropietario INTEGER NOT NULL,
+  IDPropietario VARCHAR(50) NOT NULL,
   Estado VARCHAR(50) NOT NULL,
   PRIMARY KEY(IDReservacion)
 );
 
 CREATE TABLE TReservacion (
 	IDReservacion INTEGER NOT NULL,
-	TipoA VARCHAR(50) NOT NULL
+	IDAvion INTEGER NOT NULL,
 	PRIMARY KEY(IDReservacion)
 );
 
@@ -136,6 +136,13 @@ CREATE TABLE Ruta(
 	AeFinal VARCHAR(50) NOT NUll,
 	PRIMARY KEY(IDRuta)
 );
+
+CREATE TABLE log_historial (
+  Fecha DATETIME,
+  Pasaporte VARCHAR(50),
+  Nombre VARCHAR(50)
+);
+
 
 
 --PROCEDIMIENTOS
@@ -158,15 +165,11 @@ AS
 		IF
 			@Estudiante = 1
 			insert into Estudiante values ( @Pasaporte, @Carne, 0)
+			insert into Universidad values(@Carne, @NombreU)
 		--ELSE
 			--SELECT 'No es estudiante'
 	END
 
-
-EXEC CrearCliente 60431231, 'Carlos Araya', 84283249, 'charlie@gmail.com', 1, 'jasdo', 2512839, 'TEC', '2015099874', 0
-EXEC CrearCliente 50431231, 'Carlos Angulo', 85283249, 'charlieE@gmail.com', 0, '', 0, '', '', 0
-
-END
 
 CREATE PROC NuevaReservacion
 	@Pasaporte INTEGER, 
@@ -192,25 +195,21 @@ AS
 
 
 
-EXEC NuevaReservacion 12892042, 'Z123', 3, 12332, 21, 'P', 10
-
 
 --PROCEDIMIENTO PARA AGREGAR UN NUEVO ASISTENTE DE VUELo
 CREATE PROC NuevaAsistVuelo
 	@Correo VARCHAR(50)
 AS
+BEGIN
 	BEGIN TRY
 		insert into AsistenteVuelo values(@Correo)
 	END TRY
 	BEGIN CATCH
 		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
 	END CATCH
+END
 
-
-
-
-EXEC NuevaAsistVuelo 'deiber@gmail.com'
-
+/* NO SIRVE PARA NADA CREO
 --PROCEDIMIENTO PARA CREAR UN NUEVO VUELO
 CREATE PROC NuevoVuelo
 	@Precio INTEGER,
@@ -234,12 +233,137 @@ AS
 		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
 	END CATCH
 
+*/
+--AGREGAR PASAJEROS Y MALETAS A UN VUELO
+CREATE PROC AgregarAlVuelo
+	@IDVuelo INTEGER,
+	@CantPasajeros INTEGER,
+	@CantMaletas INTEGER
+AS
+BEGIN
+	BEGIN TRY	
+		BEGIN UPDATE Vuelo
+			SET @CantMaletas += CantMaletas
+			WHERE @IDVuelo = Vuelo.IDVuelo
+		END
+		BEGIN UPDATE Vuelo
+			SET @CantPasajeros += CPasajeros
+			WHERE @IDVuelo = Vuelo.IDVuelo
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
+	END CATCH
+END
+
+--FALTA VALIDAR TOP
+--AGREGAR DE UN ASIENTO EN UN ASIENTO
+--AGREGAR ASIENTOS A UN AVION EN UN VUELO
+
+CREATE PROC AgregarAsiento
+	@IDTiquete INTEGER,
+	@IDReservacion INTEGER,
+	@Categoria VARCHAR(50)
+
+AS
+BEGIN
+	DECLARE @ADisponibles BIT
+	SELECT @ADisponibles = AsientosDisponibles FROM Avion
+	DECLARE @ReservacionID INTEGER
+	SELECT @ReservacionID = IDReservacion FROM TReservacion
+	DECLARE @RIDAvion INTEGER
+	SELECT @RIDAvion = IDAvion FROM TReservacion
+	DECLARE @AvionID INTEGER
+	SELECT @AvionID = IDAvion FROM TAvion
+	DECLARE @TiqueteID INTEGER
+	SELECT @TiqueteID = IDTiquete FROM Tiquete
+	DECLARE @TiqueteRID INTEGER
+	SELECT @TiqueteRID = IDReservacion FROM Tiquete
+	DECLARE @TiqueteAID INTEGER
+	SELECT @TiqueteAID = IDTiquete FROM Asiento
+	BEGIN TRY
+		IF @ADisponibles = 1 --1 = TRUE
+			BEGIN UPDATE Avion
+				SET Avion.AsientosTotales += 1
+				WHERE @IDReservacion =  @ReservacionID AND @RIDAvion = @AvionID
+			END
+			IF @Categoria = 'P' --PRIMERA CLASE
+				BEGIN UPDATE TAvion
+					SET PrimClase += 1
+					WHERE @AvionID = @RIDAvion AND @ReservacionID = @TiqueteRID AND @TiqueteID = @TiqueteAID
+				END
+			ELSE
+				BEGIN UPDATE TAvion
+					SET EconClase += 1
+					WHERE @AvionID = @RIDAvion AND @ReservacionID = @TiqueteRID AND @TiqueteID = @TiqueteAID
+				END
+	END TRY
+	BEGIN CATCH
+		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
+	END CATCH
+END
+				
+
+/*
+CREATE PROC AgregarAsiento
+	@IDTiquete INTEGER,
+	@IDReservacion INTEGER,
+	@Categoria VARCHAR(50)
+
+AS
+BEGIN
+	DECLARE @ADisponibles BIT
+	SELECT @ADisponibles = AsientosDisponibles FROM Avion
+	DECLARE @ReservacionID INTEGER
+	SELECT @ReservacionID = IDReservacion FROM TReservacion
+	DECLARE @RIDAvion INTEGER
+	SELECT @RIDAvion = IDAvion FROM TReservacion
+	DECLARE @AvionID INTEGER
+	SELECT @AvionID = IDAvion FROM TAvion
+	DECLARE @TiqueteID INTEGER
+	SELECT @TiqueteID = IDTiquete FROM Tiquete
+	DECLARE @TiqueteRID INTEGER
+	SELECT @TiqueteRID = IDReservacion FROM Tiquete
+	DECLARE @TiqueteAID INTEGER
+	SELECT @TiqueteAID = IDTiquete FROM Asiento
+	BEGIN TRY
+		IF @ADisponibles = 1 --1 = TRUE
+			BEGIN UPDATE Avion
+				SET Avion.AsientosTotales += 1
+				WHERE @IDReservacion =  @ReservacionID AND @RIDAvion = @AvionID
+			END
+			IF @Categoria = 'P' --PRIMERA CLASE
+				BEGIN UPDATE TAvion
+					SET PrimClase += 1
+					WHERE @AvionID = @RIDAvion AND @ReservacionID = @TiqueteRID AND @TiqueteID = @TiqueteAID
+				END
+			ELSE
+				BEGIN UPDATE TAvion
+					SET EconClase += 1
+					WHERE @AvionID = @RIDAvion AND @ReservacionID = @TiqueteRID AND @TiqueteID = @TiqueteAID
+				END
+	END TRY
+	BEGIN CATCH
+		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
+	END CATCH
+END
+		
+*/
+
+CREATE PROC Promocion
+AS
+	BEGIN
+		SELECT DISTINCT Vuelo.IDVuelo, AeInicial, AeFinal, Promocion.Costo
+		FROM Promocion, Ruta, Vuelo
+		WHERE Promocion.IDVuelo = Vuelo.IDVuelo AND Vuelo.IDVuelo = Ruta.IDVuelo
+
+			
+		
+		
 
 
-
-
-EXEC NuevoVuelo 500,300,600,3,5000,'Juan Santamaría', 'Anapa', '12/8/2018', '12/8/2018', 10
-
+/*
+ NO SIRVE PARA NADA CREO
 --PROCEDIMIENTO PARA CREAR UN NUEVO AVION
 CREATE PROC NuevoAvion
 	@Tipo VARCHAR(50),
@@ -256,10 +380,39 @@ AS
 	BEGIN CATCH
 		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
 	END CATCH
+*/
+
+--ENVIAR AVION
+CREATE PROCEDURE EnviarAvion
+AS
+BEGIN
+	SELECT DISTINCT * FROM Avion
+	SELECT * FROM TAvion
+END
 
 
-EXEC NuevoAvion 'Z1123', 1, 30, 250, 270
+--ENVIAR RUTA DE VUELO
+CREATE PROCEDURE EnviarVuelo
+AS
+BEGIN
+	SELECT IDRuta, Escala.IDEscala, AeSalida, AeLlegada 
+	FROM Ruta, CEscala, Escala
+	WHERE CEscala.IDEscala = Escala.IDEscala AND CEscala.IDVuelo = Ruta.IDVuelo
+END
 
+--PROMOCION
 
---CONEXION CON RESTFUL
+--TRIGGERS
+
+CREATE TRIGGER Historial
+  ON Cliente FOR INSERT
+  AS
+  --SET NOCOUNT ON;
+  DECLARE @Passport VARCHAR(50)
+  SELECT @Passport = Pasaporte FROM inserted 
+  DECLARE @Name VARCHAR(50)
+  SELECT @Name = NombreComp FROM inserted
+  INSERT INTO log_historial VALUES (getdate(), @Passport, @Name)
+
+  DROP TRIGGER Historial
 
