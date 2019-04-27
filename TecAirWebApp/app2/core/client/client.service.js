@@ -4,10 +4,9 @@ angular.
   module('core.client').
   factory('Client', ['$resource',
     function($resource) {
-      return $resource('phones/:phoneId.json', {}, {
+      return $resource('http://localhost:9090/GetCliente', {}, {
         query: {
           method: 'GET',
-          params: {phoneId: 'phones'},
           isArray: true
         }
       });
