@@ -258,4 +258,8 @@ AS
 	END CATCH
 
 
-EXEC NuevoAvion 
+EXEC NuevoAvion 'Z1123', 1, 30, 250, 270
+
+
+--CONEXION CON RESTFUL
+
