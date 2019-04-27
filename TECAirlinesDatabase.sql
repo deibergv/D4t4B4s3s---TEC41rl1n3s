@@ -1,4 +1,4 @@
- -- Script de Populacion de tablas
+-- Script de Populacion de tablas
 -- 08/04/19
 -- Deiber / Anthony
 
@@ -16,6 +16,7 @@ CREATE TABLE Cliente (
 	PRIMARY KEY(Pasaporte)
 );
 
+
 CREATE TABLE Estudiante ( 
 	Carné VARCHAR(50) NOT NULL,
 	Pasaporte INTEGER NOT NULL,
@@ -27,6 +28,13 @@ CREATE TABLE Universidad (
   Carné INTEGER NOT NULL,
   NombreU VARCHAR(50) NOT NULL,
   PRIMARY KEY(Carné)
+);
+
+CREATE TABLE Aeropuerto ( 
+  Nombre VARCHAR(50) NOT NULL,
+  País VARCHAR(50) NOT NULL,
+  CodigoP VARCHAR(5) NOT NULL,
+  PRIMARY KEY(Nombre)
 );
 
  CREATE TABLE Maleta (
@@ -43,13 +51,14 @@ CREATE TABLE PMaleta (
 
 CREATE TABLE Tiquete ( 
 	ID INTEGER IDENTITY(1,1) NOT NULL,
-	IDR INTEGER IDENTITY(1,1) NOT NULL,
+	IDR INTEGER NOT NULL,
 	PRIMARY KEY(ID)
 );
 
 CREATE TABLE Avion ( 
 	Tipo VARCHAR(50) NOT NULL,
 	AsientosDisponibles BIT NOT NULL,
+	AsientosTotales INTEGER NOT NULL,
 	PRIMARY KEY(Tipo)
 );
 
@@ -67,46 +76,10 @@ CREATE TABLE AsistenteVuelo (
 );
 
 CREATE TABLE Asiento (
-	IDTiquete INTEGER IDENTITY(1,1),
+	IDTiquete INTEGER,
 	Numero INTEGER NOT NULL,
 	Categoría VARCHAR(50) NOT NULL,
 	PRIMARY KEY(IDTiquete)
-);
-
-CREATE TABLE Vuelo (
-	IDVuelo INTEGER IDENTITY(1,1) NOT NULL, -- Debe tener aumento aumatico (o que se cree un ID único automatico)
-	Precio INTEGER NOT NULL,
-	CPasajeros INTEGER NOT NULL,
-	CantMaletas INTEGER NOT NULL,
-	PRIMARY KEY(IDVuelo)
-);
-
-CREATE TABLE Aeropuerto ( 
-  Nombre VARCHAR(50) NOT NULL,
-  País VARCHAR(50) NOT NULL,
-  CodigoP VARCHAR(5) NOT NULL,
-  PRIMARY KEY(Nombre)
-);
-
-CREATE TABLE Reservacion (
-  IDReservacion INTEGER IDENTITY(1,1) NOT NULL,
-  IDPropietario INTEGER IDENTITY(1,1) NOT NULL,
-  Estado VARCHAR(50) NOT NULL,
-  PRIMARY KEY(IDReservacion)
-);
-
-CREATE TABLE TReservacion (
-	IDReservacion INTEGER IDENTITY(1,1) NOT NULL,
-	TipoA VARCHAR(50) NOT NULL
-	PRIMARY KEY(IDReservacion)
-);
-
-CREATE TABLE Promocion (
-	IDPromo INTEGER IDENTITY(1,1) NOT NULL,
-	IDVuelo INTEGER IDENTITY(1,1) NOT NULL,
-	Costo INTEGER NOT NULL,
-	Fecha DATETIME NOT NULL,
-	PRIMARY KEY(IDPromo)
 );
 
 CREATE TABLE Escala (
@@ -122,13 +95,42 @@ CREATE TABLE Escala (
 );
 
 CREATE TABLE CEscala(
-	IDEscala INTEGER IDENTITY(1,1) NOT NULL,
-	IDVuelo INTEGER IDENTITY(1,1) NOT NULL,
+	IDEscala INTEGER NOT NULL,
+	IDVuelo INTEGER NOT NULL,
 	PRIMARY KEY(IDEscala)
 );
 
+CREATE TABLE Vuelo (
+	IDVuelo INTEGER IDENTITY(1,1) NOT NULL, -- Debe tener aumento aumatico (o que se cree un ID único automatico)
+	Precio INTEGER NOT NULL,
+	CPasajeros INTEGER NOT NULL,
+	CantMaletas INTEGER NOT NULL,
+	PRIMARY KEY(IDVuelo)
+);
+
+CREATE TABLE Reservacion (
+  IDReservacion INTEGER IDENTITY(1,1) NOT NULL,
+  IDPropietario INTEGER NOT NULL,
+  Estado VARCHAR(50) NOT NULL,
+  PRIMARY KEY(IDReservacion)
+);
+
+CREATE TABLE TReservacion (
+	IDReservacion INTEGER NOT NULL,
+	TipoA VARCHAR(50) NOT NULL
+	PRIMARY KEY(IDReservacion)
+);
+
+CREATE TABLE Promocion (
+	IDPromo INTEGER IDENTITY(1,1) NOT NULL,
+	IDVuelo INTEGER NOT NULL,
+	Costo INTEGER NOT NULL,
+	Fecha DATETIME NOT NULL,
+	PRIMARY KEY(IDPromo)
+);
+
 CREATE TABLE Ruta(
-	IDVuelo INTEGER IDENTITY(1,1) NOT NULL,
+	IDVuelo INTEGER NOT NULL,
 	AeInicial VARCHAR(50) NOT NULL,
 	AeFinal VARCHAR(50) NOT NUll,
 	PRIMARY KEY(IDVuelo)
@@ -168,7 +170,7 @@ END
 CREATE PROC NuevaReservacion
 	@Pasaporte INTEGER, 
 	@TAvion VARCHAR(50), 
-	@Vuelo INTEGER IDENTITY(1,1),
+	@Vuelo INTEGER,
 	@PTotalM INTEGER, 
 	@NAsiento INTEGER, 
 	@Categoria VARCHAR(50)
@@ -176,7 +178,7 @@ CREATE PROC NuevaReservacion
 AS
 	BEGIN
 		insert into Reservacion values(@Pasaporte, 'Reservo')
-		insert into Maleta values( @Pasaporte, @PTotalM)
+		insert into Maleta values(@Pasaporte)
 		insert into Asiento values(@NAsiento, @Categoria)
 	END
 
@@ -198,15 +200,20 @@ CREATE PROC NuevoVuelo
 	@AeSalida VARCHAR(50),
 	@AeLlegada VARCHAR(50),
 	@FechaSalida DATETIME,
-	@FechaLlegada DATETIME
+	@FechaLlegada DATETIME,
+	@Duracion INTEGER
 
 AS
 	BEGIN
 		insert into Vuelo values(@Precio, @CantPasajeros, @CantMaletas)
-		insert into Escala values(@NEscalas, @Millas, @AeSalida, @AeLlegada, @FechaSalida, @FechaLlegada)
+		insert into Escala values(@NEscalas, @Millas, @AeSalida, @AeLlegada, @FechaSalida, @FechaLlegada, @Duracion)
 		insert into Ruta values(@AeSalida, @AeLlegada)
 	END
 
+
+
+
+EXEC NuevoVuelo 500, 20, 20, 2, 100, 'Juan Santamaría', 'Ambler', '12/04/2018', '12/04/2014'
 --PROCEDIMIENTO PARA CREAR UN NUEVO AVION
 CREATE PROC NuevoAvion
 	@Tipo VARCHAR(50),
@@ -220,10 +227,3 @@ AS
 		insert into TAvion values(@Tipo, @PrimClase, @EClase)
 	END
 
-
-CREATE TRIGGER Insertar
-ON Cliente
-FOR DELETE
-AS
-	BEGIN
-*/	
