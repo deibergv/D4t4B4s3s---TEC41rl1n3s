@@ -21,7 +21,7 @@ namespace TEST.Repositories
                     .Replace("@Telefono", cliente.Telefono.ToString())
                     .Replace("@Correo", cliente.Correo)
                     .Replace("@Estudiante", cliente.Estudiante.ToString())
-                    .Replace("@InfoU", cliente.InfoU)
+                    //.Replace("@InfoU", cliente.InfoU)
                     .Replace("@Carne", cliente.Carne.ToString())
                     .Replace("@millasEstudiante", cliente.millasEstudiante.ToString());
 
@@ -72,7 +72,7 @@ namespace TEST.Repositories
                 cliente.Telefono = Convert.ToInt32(reader.GetValue(1));
                 cliente.Correo = reader.GetValue(2).ToString();
                 cliente.Estudiante = Convert.ToInt32(reader.GetValue(3));
-                cliente.InfoU = reader.GetValue(4).ToString();
+                //cliente.InfoU = reader.GetValue(4).ToString();
                 cliente.Carne = Convert.ToInt32(reader.GetValue(5));
                 cliente.millasEstudiante = Convert.ToInt32(reader.GetValue(6));
             }
@@ -112,7 +112,7 @@ namespace TEST.Repositories
                 cliente.Telefono = Convert.ToInt32(reader.GetValue(1));
                 cliente.Correo = reader.GetValue(2).ToString();
                 cliente.Estudiante = Convert.ToInt32(reader.GetValue(3));
-                cliente.InfoU = reader.GetValue(4).ToString();
+                //cliente.InfoU = reader.GetValue(4).ToString();
                 cliente.Carne = Convert.ToInt32(reader.GetValue(5));
                 cliente.millasEstudiante = Convert.ToInt32(reader.GetValue(6));
                 listaClientes.Add(cliente);
