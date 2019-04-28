@@ -6,6 +6,7 @@
   "repository": "https://github.com/deibergv/D4t4B4s3s---TEC41rl1n3s",
   "license": "MIT",
   "dependencies": {
+    "@uirouter/angularjs": "^1.0.22",
     "angular": "1.7.x",
     "angular-animate": "1.7.x",
     "angular-loader": "1.7.x",
