@@ -12,7 +12,7 @@ CREATE TABLE Cliente (
 	Correo VARCHAR(50) NOT NULL,
 	Estudiante BIT NOT NULL,
 	Pass VARCHAR(50) NOT NULL,
-	NTarjeta INTEGER NOT NULL,
+	NTarjeta VARCHAR(50) NOT NULL,
 	PRIMARY KEY(Pasaporte)
 );
 
@@ -44,14 +44,14 @@ CREATE TABLE Aeropuerto (
 );
 
 CREATE TABLE PMaleta (
-	codigoM  INTEGER IDENTITY(1,1) NOT NULL,
+	codigoM  INTEGER NOT NULL,
 	peso INTEGER NOT NULL,
 	PRIMARY KEY(codigoM)
 );
 
 CREATE TABLE Tiquete ( 
 	IDTiquete INTEGER IDENTITY(1,1) NOT NULL,
-	IDReservacion INTEGER NOT NULL,
+	IDReservacion INTEGER NOT NULL
 	PRIMARY KEY(IDTiquete)
 );
 
@@ -73,7 +73,7 @@ CREATE TABLE TAvion (
 CREATE TABLE AsistenteVuelo (
   IDAsist INTEGER IDENTITY(1,1) NOT NULL,
   Correo VARCHAR(50) NOT NULL,
-  PRIMARY KEY(ID)
+  PRIMARY KEY(IDAsist)
 );
 
 CREATE TABLE Asiento (
@@ -81,6 +81,14 @@ CREATE TABLE Asiento (
 	Numero INTEGER NOT NULL,
 	Categoria VARCHAR(50) NOT NULL,
 	PRIMARY KEY(IDTiquete)
+);
+
+CREATE TABLE Precio(
+	IDVuelo INTEGER NOT NULL,
+	IDTiquete INTEGER NOT NULL,
+	CEconomico INTEGER NOT NULL,
+	CPrim INTEGER NOT NULL,
+	PRIMARY KEY(IDVuelo)
 );
 
 CREATE TABLE Escala (
@@ -102,7 +110,6 @@ CREATE TABLE CEscala (
 
 CREATE TABLE Vuelo (
 	IDVuelo INTEGER IDENTITY(1,1) NOT NULL, -- Debe tener aumento aumatico (o que se cree un ID único automatico)
-	Precio INTEGER NOT NULL,
 	CPasajeros INTEGER NOT NULL,
 	CantMaletas INTEGER NOT NULL,
 	PRIMARY KEY(IDVuelo)
@@ -160,7 +167,7 @@ CREATE PROC CrearCliente
 	@Millas INTEGER
 
 AS
-	BEGIN
+	BEGIN TRY
 		insert into Cliente values(@Pasaporte, @NombreComp, @Telefono, @Correo, @Estudiante, @Contraseña, @NTarjeta)
 		IF
 			@Estudiante = 1
@@ -168,6 +175,10 @@ AS
 			insert into Universidad values(@Carne, @NombreU)
 		--ELSE
 			--SELECT 'No es estudiante'
+	 END TRY
+		BEGIN CATCH
+			SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
+		END CATCH
 	END
 
 
@@ -175,18 +186,14 @@ CREATE PROC NuevaReservacion
 	@Pasaporte INTEGER, 
 	@TAvion VARCHAR(50), 
 	@Vuelo INTEGER,
-	@PTotalM INTEGER, 
-	@NAsiento INTEGER, 
-	@Categoria VARCHAR(50),
-	@IDTiquete INTEGER
-
+	@PTotalM INTEGER
 
 AS
 	BEGIN
 		BEGIN TRY
+			
 			insert into Reservacion values(@Pasaporte, 'Reservo')
 			insert into Maleta values(@Pasaporte)
-			insert into Asiento values(@IDTiquete, @NAsiento, @Categoria)
 		END TRY
 		BEGIN CATCH
 			SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
@@ -194,9 +201,15 @@ AS
 	END
 
 
+CREATE PROC NuevoTiquete
+	@IDReservacion INTEGER,
+	@ClaseAsiento VARCHAR(50)
 
+AS
+	BEGIN
+		DECLARE @CategoriaAsiento VARCHAR(50)
+		SELECT @CategoriaAsiento = Categoria FROM Asiento WH
 
---PROCEDIMIENTO PARA AGREGAR UN NUEVO ASISTENTE DE VUELo
 CREATE PROC NuevaAsistVuelo
 	@Correo VARCHAR(50)
 AS
@@ -209,31 +222,6 @@ BEGIN
 	END CATCH
 END
 
-/* NO SIRVE PARA NADA CREO
---PROCEDIMIENTO PARA CREAR UN NUEVO VUELO
-CREATE PROC NuevoVuelo
-	@Precio INTEGER,
-	@CantPasajeros INTEGER,
-	@CantMaletas INTEGER,
-	@NEscalas INTEGER,
-	@Millas INTEGER,
-	@AeSalida VARCHAR(50),
-	@AeLlegada VARCHAR(50),
-	@FechaSalida DATETIME,
-	@FechaLlegada DATETIME,
-	@Duracion INTEGER
-
-AS
-	BEGIN TRY
-		insert into Vuelo values(@Precio, @CantPasajeros, @CantMaletas)
-		insert into Escala values(@NEscalas, @Millas, @AeSalida, @AeLlegada, @FechaSalida, @FechaLlegada, @Duracion)
-		insert into Ruta values(1, @AeSalida, @AeLlegada)
-	END TRY
-	BEGIN CATCH
-		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
-	END CATCH
-
-*/
 --AGREGAR PASAJEROS Y MALETAS A UN VUELO
 CREATE PROC AgregarAlVuelo
 	@IDVuelo INTEGER,
@@ -263,124 +251,66 @@ END
 CREATE PROC AgregarAsiento
 	@IDTiquete INTEGER,
 	@IDReservacion INTEGER,
-	@Categoria VARCHAR(50)
+	@Categoria VARCHAR(50),
+	@NAsiento INTEGER
 
 AS
 BEGIN
+	DECLARE @IDAvion INTEGER
+	SELECT @IDAvion = IDAvion FROM TReservacion WHERE @IDReservacion = TReservacion.IDReservacion
 	DECLARE @ADisponibles BIT
-	SELECT @ADisponibles = AsientosDisponibles FROM Avion
-	DECLARE @ReservacionID INTEGER
-	SELECT @ReservacionID = IDReservacion FROM TReservacion
-	DECLARE @RIDAvion INTEGER
-	SELECT @RIDAvion = IDAvion FROM TReservacion
-	DECLARE @AvionID INTEGER
-	SELECT @AvionID = IDAvion FROM TAvion
-	DECLARE @TiqueteID INTEGER
-	SELECT @TiqueteID = IDTiquete FROM Tiquete
-	DECLARE @TiqueteRID INTEGER
-	SELECT @TiqueteRID = IDReservacion FROM Tiquete
-	DECLARE @TiqueteAID INTEGER
-	SELECT @TiqueteAID = IDTiquete FROM Asiento
+	SELECT @ADisponibles = AsientosDisponibles FROM Avion WHERE IDAvion = @IDAvion  
 	BEGIN TRY
+	INSERT INTO Asiento VALUES(@IDTiquete, @NAsiento, @Categoria)
 		IF @ADisponibles = 1 --1 = TRUE
 			BEGIN UPDATE Avion
-				SET Avion.AsientosTotales += 1
-				WHERE @IDReservacion =  @ReservacionID AND @RIDAvion = @AvionID
+				SET Avion.AsientosTotales = Avion.AsientosTotales + 1
+				WHERE Avion.IDAvion = @IDAvion
 			END
 			IF @Categoria = 'P' --PRIMERA CLASE
 				BEGIN UPDATE TAvion
 					SET PrimClase += 1
-					WHERE @AvionID = @RIDAvion AND @ReservacionID = @TiqueteRID AND @TiqueteID = @TiqueteAID
+					WHERE TAvion.IDAvion = @IDAvion
 				END
 			ELSE
 				BEGIN UPDATE TAvion
 					SET EconClase += 1
-					WHERE @AvionID = @RIDAvion AND @ReservacionID = @TiqueteRID AND @TiqueteID = @TiqueteAID
+					WHERE TAvion.IDAvion = @IDAvion
 				END
 	END TRY
 	BEGIN CATCH
 		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
 	END CATCH
 END
+
+
+EXEC AgregarAsiento 22, 1, 'P', 10
+DROP TABLE Avion, TAvion
+DROP PROC AgregarAsiento
 				
-
-/*
-CREATE PROC AgregarAsiento
-	@IDTiquete INTEGER,
-	@IDReservacion INTEGER,
-	@Categoria VARCHAR(50)
-
-AS
-BEGIN
-	DECLARE @ADisponibles BIT
-	SELECT @ADisponibles = AsientosDisponibles FROM Avion
-	DECLARE @ReservacionID INTEGER
-	SELECT @ReservacionID = IDReservacion FROM TReservacion
-	DECLARE @RIDAvion INTEGER
-	SELECT @RIDAvion = IDAvion FROM TReservacion
-	DECLARE @AvionID INTEGER
-	SELECT @AvionID = IDAvion FROM TAvion
-	DECLARE @TiqueteID INTEGER
-	SELECT @TiqueteID = IDTiquete FROM Tiquete
-	DECLARE @TiqueteRID INTEGER
-	SELECT @TiqueteRID = IDReservacion FROM Tiquete
-	DECLARE @TiqueteAID INTEGER
-	SELECT @TiqueteAID = IDTiquete FROM Asiento
-	BEGIN TRY
-		IF @ADisponibles = 1 --1 = TRUE
-			BEGIN UPDATE Avion
-				SET Avion.AsientosTotales += 1
-				WHERE @IDReservacion =  @ReservacionID AND @RIDAvion = @AvionID
-			END
-			IF @Categoria = 'P' --PRIMERA CLASE
-				BEGIN UPDATE TAvion
-					SET PrimClase += 1
-					WHERE @AvionID = @RIDAvion AND @ReservacionID = @TiqueteRID AND @TiqueteID = @TiqueteAID
-				END
-			ELSE
-				BEGIN UPDATE TAvion
-					SET EconClase += 1
-					WHERE @AvionID = @RIDAvion AND @ReservacionID = @TiqueteRID AND @TiqueteID = @TiqueteAID
-				END
-	END TRY
-	BEGIN CATCH
-		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
-	END CATCH
-END
-		
-*/
-
-CREATE PROC Promocion
+CREATE PROC Promo
 AS
 	BEGIN
 		SELECT DISTINCT Vuelo.IDVuelo, AeInicial, AeFinal, Promocion.Costo
 		FROM Promocion, Ruta, Vuelo
-		WHERE Promocion.IDVuelo = Vuelo.IDVuelo AND Vuelo.IDVuelo = Ruta.IDVuelo
+		WHERE Promocion.IDVuelo = Vuelo.IDVuelo AND Vuelo.IDVuelo = Ruta.IDRuta
+	END
 
-			
-		
-		
-
-
-/*
- NO SIRVE PARA NADA CREO
---PROCEDIMIENTO PARA CREAR UN NUEVO AVION
-CREATE PROC NuevoAvion
-	@Tipo VARCHAR(50),
-	@AsientoDisponibles BIT,
-	@PrimClase INTEGER,
-	@EClase INTEGER,
-	@AsientosTotales INTEGER
-
+CREATE PROC ActualizarMillas
+	@Pasaporte VARCHAR(50)
 AS
-	BEGIN TRY
-		insert into Avion values(@Tipo, @AsientoDisponibles, @AsientoDisponibles)
-		insert into TAvion values(@Tipo, @PrimClase, @EClase)
-	END TRY
-	BEGIN CATCH
-		SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
-	END CATCH
-*/
+	DECLARE @Carne VARCHAR(50)
+	SELECT @Carne = Carne FROM Estudiante WHERE Estudiante.Pasaporte = @Pasaporte
+	BEGIN UPDATE Estudiante
+		SET MillasE += 100
+		WHERE @Carne = Estudiante.Carne
+	END
+
+EXEC  ActualizarMillas '12312312'
+DROP PROC ActualizarMillas
+
+
+		
 
 --ENVIAR AVION
 CREATE PROCEDURE EnviarAvion
@@ -400,7 +330,7 @@ BEGIN
 	WHERE CEscala.IDEscala = Escala.IDEscala AND CEscala.IDVuelo = Ruta.IDVuelo
 END
 
---PROMOCION
+
 
 --TRIGGERS
 
@@ -414,5 +344,6 @@ CREATE TRIGGER Historial
   SELECT @Name = NombreComp FROM inserted
   INSERT INTO log_historial VALUES (getdate(), @Passport, @Name)
 
-  DROP TRIGGER Historial
+
+
 

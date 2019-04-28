@@ -137,17 +137,17 @@ insert into Tiquete values(3)
 
 --TIPOS DE AVIONES POR AHORA
 
-insert into Avion values('X8213', 1, 400)
-insert into Avion values('Z120', 1, 300)
-insert into Avion values('Y40', 1, 350)
-insert into Avion values('X189', 1, 200)
+insert into Avion values(1, 0) --400
+insert into Avion values(1, 0) -- 300
+insert into Avion values(1, 0) --350
+insert into Avion values(0, 0) --200
 
 --AVION CLASES
 
-insert into TAvion values('X8213', 50, 350)
-insert into TAvion values('Z120', 25, 275)
-insert into TAvion values('Y40', 30, 320)
-insert into TAvion values('X189', 10, 190)
+insert into TAvion values(1, 'X8213', 0, 0) -- 50, 350
+insert into TAvion values(2, 'Z120', 25, 275) --25, 275
+insert into TAvion values(3, 'Y40', 30, 320) --30, 320
+insert into TAvion values(4, 'X189', 10, 190) --10, 190
 
 --ASISTENTE DE VUELO
 
@@ -192,7 +192,7 @@ insert into Escala values(4359, 'Anapa', 'Lanzarote', '02/15/2018', '02/15/2018'
 insert into Escala values(5605, 'Lanzarote', 'Ciudad Obregon', '02/16/2018', '02/16/2018', 10)
 insert into Escala values(2132, 'Ciudad Obregon', 'Juan Santamaría', '02/17/2018', '02/17/2018', 4)
 insert into Escala values(3236, 'Comodoro Arturo Merino Benítez', 'Juan Santamaría', '12/10/2018','12/10/2018', 6)
-insert into Escala values(2900.8 , 'Juan Santamaría', 'Nashville International', '12/10/2018', '12/11/2018', 5)
+insert into Escala values(2900 , 'Juan Santamaría', 'Nashville International', '12/10/2018', '12/11/2018', 5)
 
 -- CANTIDAD DE ESCALAS
 
@@ -217,11 +217,11 @@ insert into Reservacion values(596895, 'Reservo')
 
 --RESERVACION CON TIPO DE AVION
 
-insert into TReservacion values(1, 'X8213')
-insert into TReservacion values(2, 'X8213')
-insert into TReservacion values(3, 'X8213')
-insert into TReservacion values(4, 'Z120')
-insert into TReservacion values(5, 'Z120')
+insert into TReservacion values(1, 1)
+insert into TReservacion values(2, 1)
+insert into TReservacion values(3, 1)
+insert into TReservacion values(4, 2)
+insert into TReservacion values(5, 2)
 
 --PROMOCION
 
