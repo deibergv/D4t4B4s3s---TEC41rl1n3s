@@ -51,8 +51,7 @@ CREATE TABLE PMaleta (
 
 CREATE TABLE Tiquete ( 
 	IDTiquete INTEGER IDENTITY(1,1) NOT NULL,
-	Precio INTEGER NOT NULL,
-	IDReservacion INTEGER NOT NULL,
+	IDReservacion INTEGER NOT NULL
 	PRIMARY KEY(IDTiquete)
 );
 
@@ -65,7 +64,6 @@ CREATE TABLE Avion (
 
 CREATE TABLE TAvion ( 
 	IDAvion INTEGER NOT NULL,
-	IDTiquete INTEGER NOT NULL,
 	Tipo VARCHAR(50) NOT NULL,
 	PrimClase INTEGER NOT NULL,
 	EconClase INTEGER NOT NULL,
@@ -83,6 +81,14 @@ CREATE TABLE Asiento (
 	Numero INTEGER NOT NULL,
 	Categoria VARCHAR(50) NOT NULL,
 	PRIMARY KEY(IDTiquete)
+);
+
+CREATE TABLE Precio(
+	IDVuelo INTEGER NOT NULL,
+	IDTiquete INTEGER NOT NULL,
+	CEconomico INTEGER NOT NULL,
+	CPrim INTEGER NOT NULL
+	PRIMARY KEY(IDVuelo)
 );
 
 CREATE TABLE Escala (
@@ -161,7 +167,7 @@ CREATE PROC CrearCliente
 	@Millas INTEGER
 
 AS
-	BEGIN
+	BEGIN TRY
 		insert into Cliente values(@Pasaporte, @NombreComp, @Telefono, @Correo, @Estudiante, @Contraseña, @NTarjeta)
 		IF
 			@Estudiante = 1
@@ -169,6 +175,10 @@ AS
 			insert into Universidad values(@Carne, @NombreU)
 		--ELSE
 			--SELECT 'No es estudiante'
+	 END TRY
+		BEGIN CATCH
+			SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
+		END CATCH
 	END
 
 
@@ -177,11 +187,11 @@ CREATE PROC NuevaReservacion
 	@TAvion VARCHAR(50), 
 	@Vuelo INTEGER,
 	@PTotalM INTEGER
- 
 
 AS
 	BEGIN
 		BEGIN TRY
+			
 			insert into Reservacion values(@Pasaporte, 'Reservo')
 			insert into Maleta values(@Pasaporte)
 		END TRY
@@ -191,7 +201,14 @@ AS
 	END
 
 
-DROP PROC NuevaReservacion
+CREATE PROC NuevoTiquete
+	@IDReservacion INTEGER,
+	@ClaseAsiento VARCHAR(50)
+
+AS
+	BEGIN
+		DECLARE @CategoriaAsiento VARCHAR(50)
+		SELECT @CategoriaAsiento = Categoria FROM Asiento WH
 
 CREATE PROC NuevaAsistVuelo
 	@Correo VARCHAR(50)
