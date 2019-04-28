@@ -12,7 +12,7 @@ CREATE TABLE Cliente (
 	Correo VARCHAR(50) NOT NULL,
 	Estudiante BIT NOT NULL,
 	Pass VARCHAR(50) NOT NULL,
-	NTarjeta INTEGER NOT NULL,
+	NTarjeta VARCHAR(50) NOT NULL,
 	PRIMARY KEY(Pasaporte)
 );
 
@@ -44,7 +44,7 @@ CREATE TABLE Aeropuerto (
 );
 
 CREATE TABLE PMaleta (
-	codigoM  INTEGER IDENTITY(1,1) NOT NULL,
+	codigoM  INTEGER NOT NULL,
 	peso INTEGER NOT NULL,
 	PRIMARY KEY(codigoM)
 );
