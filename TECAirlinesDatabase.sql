@@ -51,6 +51,7 @@ CREATE TABLE PMaleta (
 
 CREATE TABLE Tiquete ( 
 	IDTiquete INTEGER IDENTITY(1,1) NOT NULL,
+	Precio INTEGER NOT NULL,
 	IDReservacion INTEGER NOT NULL,
 	PRIMARY KEY(IDTiquete)
 );
@@ -64,6 +65,7 @@ CREATE TABLE Avion (
 
 CREATE TABLE TAvion ( 
 	IDAvion INTEGER NOT NULL,
+	IDTiquete INTEGER NOT NULL,
 	Tipo VARCHAR(50) NOT NULL,
 	PrimClase INTEGER NOT NULL,
 	EconClase INTEGER NOT NULL,
@@ -102,7 +104,6 @@ CREATE TABLE CEscala (
 
 CREATE TABLE Vuelo (
 	IDVuelo INTEGER IDENTITY(1,1) NOT NULL, -- Debe tener aumento aumatico (o que se cree un ID único automatico)
-	Precio INTEGER NOT NULL,
 	CPasajeros INTEGER NOT NULL,
 	CantMaletas INTEGER NOT NULL,
 	PRIMARY KEY(IDVuelo)
