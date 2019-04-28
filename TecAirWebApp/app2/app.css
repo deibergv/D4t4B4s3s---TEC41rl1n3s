@@ -4,3 +4,33 @@
 .clients {
     list-style: none;
 }
+.header-top {
+    padding: 10px 0;
+    max-height: 60px;
+    /* background: #2004bd; */
+}
+@media (max-width: auto) {
+    .header-top {
+        max-height: none;
+    }
+}
+.gap-mini {
+    margin: 10px 0 10px 0;
+}
+@media (min-width: auto) {
+    .global-wrap {
+        width: 1230px;
+        margin: 30px auto;
+    }
+}
+.global-wrap {
+    background: #fff;
+    height: 100%;
+}
+.full-center {
+    left: 50% !important;
+    position: absolute !important;
+    top: 50% !important;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
