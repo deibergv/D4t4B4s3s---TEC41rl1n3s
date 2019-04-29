@@ -1,14 +1,60 @@
-<div class="col-md-10">
-    <!--Body content-->
-    JAJA:
-    <ul class="clients">
-      <li ng-repeat="client in $ctrl.clients">
-        <p>{{client.NombreComp}}</p>
-        <p>{{client.Telefono}}</p>
-        <p>{{client.Correo}}</p>
-        <p>{{client.Estudiante}}</p> 
-        <p>{{client.Carne}}</p> 
-        <p>{{client.millasEstudiante}}</p> 
-      </li>
-    </ul>
+<div class="global-wrap">
+  <!-- Navigation -->
+  <header id="main-header">
+    <div class="header-top bg-primary">
+        <div class="container">
+            <div class="text-center text-white">
+                  <h2>TEC Airlines Admin</h2>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="container">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Menu</a>
+            </div>
+            <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+                <ul class="nav navbar-nav">
+                    <li><a href="#!/tecairlines/home">
+                        Inicio
+                    </a></li>
+                    <li><a href="#">
+                        Vuelos
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+    </div> -->
+  </header>
+
+  <div class="gap-mini">
+  </div>
+  
+  <div class="container text-center" style="margin:auto;width: 300px;">
+    <div class="form-group">
+      <label for="email">User</label>
+      <input type="text" class="form-control" id="email" placeholder="Usuario" #userInput>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Contraseña" #passInput>
+    </div>
+    <button type="submit" class="btn btn-primary" ng-click="$ctrl.submit()">Login</button>
+    <div>
+      <p>{{message}}</p>
+    </div>
+  </div> 
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; TECAirlines v<span app-version></span></p>
+    </div>
+  </footer> 
 </div>

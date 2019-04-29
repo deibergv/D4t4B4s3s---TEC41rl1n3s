@@ -1,3 +1,5 @@
-'use strict'
+'use strict';
 
-angular.module('login',[]);
+angular.module('login',[
+    'ui.router'
+]);

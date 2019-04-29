@@ -2,5 +2,6 @@
 
 // Define the `core` module
 angular.module('core', [
-    'core.client'
+    'core.client',
+    'core.directives'
 ]);

@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('root',[
-    'ngRoute',
     'ngAnimate',
+    'ngCookies',
+    'ui.router',
+    'core.version',
     'core',
     'home',
-    'core.version'
-    // 'airport',
-    // 'client'
-])
-.controller('MainController', ['$scope', function ($scope) {
-    $scope.loggedIn = false;
-}]);
+    'login',
+    'dashboard'
+]);
+// .controller('MainController', ['$scope', function ($scope) {
+//     $scope.loggedIn = true;
+// }]);

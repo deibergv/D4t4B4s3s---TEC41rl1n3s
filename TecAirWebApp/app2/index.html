@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" ng-app="root">
 
 <head>
   <meta charset="utf-8">
@@ -9,19 +9,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="lib/rdash-ui/dist/css/rdash.css">
   <link rel="stylesheet" href="app.css">
 
   <!-- Dependencies -->
   <script src="lib/jquery/dist/jquery.js"></script>
   <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
   <script src="lib/angular/angular.js"></script>
-  <script src="lib/angular-route/angular-route.js"></script>
+  <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="lib/angular-animate/angular-animate.js"></script>
   <script src="lib/angular-resource/angular-resource.js"></script>
   <script src="lib/angular-touch/angular-touch.js"></script>
   <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+  <script src="lib/angular-cookies/angular-cookies.js"></script>
   <script src="lib/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
 
+  <!-- Main Scripts -->
   <script src="app.module.js"></script> 
   <script src="app.config.js"></script>
 
@@ -33,118 +36,27 @@
   <script src="core/version/version-directive.js"></script>
   <script src="core/client/client.module.js"></script>
   <script src="core/client/client.service.js"></script>
+  <!-- Directives -->
+  <script src="core/directives/directives.module.js"></script>
+  <script src="core/directives/loading.directive.js"></script>
+  <script src="core/directives/widget.directive.js"></script>
+  <script src="core/directives/widget-body.directive.js"></script>
+  <script src="core/directives/widget-footer.directive.js"></script>
+  <script src="core/directives/widget-header.directive.js"></script>
 
   <!-- Airport page/admin page -->
   <script src="home/home.module.js"></script> 
   <script src="home/home.component.js"></script>
   <!-- <script src="airport/airport.config.js"></script> -->
-  <!-- <script src="airport/home/home.module.js"></script>
-  <script src="airport/home/home.component.js"></script> -->
+  <script src="login/login.module.js"></script>
+  <script src="login/login.component.js"></script>
+  <script src="dashboard/dashboard.module.js"></script>
+  <script src="dashboard/dashboard.component.js"></script>
 </head>
 
-<body ng-app="root">
-  <div class="global-wrap">
-  <!-- Navigation -->
-    <header id="main-header">
-      <div class="header-top bg-primary">
-          <div class="container">
-              <div class="text-center text-white">
-                  <!-- <div class="col-lg-6 col-lg-offset-3"> -->
-                    <h2>TEC Airlines Admin</h2>
-                  <!-- </div> -->
-              </div>
-          </div>
-      </div>
-      <!-- <div class="container">
-          <nav class="navbar navbar-default" role="navigation">
-              <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="#">Menu</a>
-              </div>
-              <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
-                  <ul class="nav navbar-nav">
-                      <li><a href="#!/tecairlines/home">
-                          Inicio
-                      </a></li>
-                      <li><a href="#">
-                          Vuelos
-                      </a></li>
-                  </ul>
-              </div>
-          </nav>
-      </div> -->
-    </header>
+<body>
 
-    <div class="gap-mini"></div>
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="/bombatica/home">Farmacias BombaTica</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/bombatica/home">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item" *ngIf="!loggedIn">
-            <a class="nav-link" routerLink="/bombatica/home/login">Login</a>
-          </li>
-          <li class="nav-item" *ngIf="!loggedIn">
-            <a class="nav-link" routerLink="/bombatica/home/register">Registrar</a>
-          </li>
-          <li class="nav-item" *ngIf="loggedIn">
-            <a class="nav-link" routerLink="/bombatica/home/user">Cuenta</a>
-          </li>
-          <li class="nav-item" *ngIf="loggedIn">
-            <a class="nav-link" (click)="logout()" href="/bombatica/home">Log out</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav> -->
+  <div ui-view></div>
 
-    <!-- Page Content -->
-    <div class="container">
-
-      <div class="row">
-
-        <div  ng-if="loggedIn" class="col-md-3">
-
-          <div class="list-group">
-            <a href="#!/tecadmin/home" class="list-group-item" >Inicio</a>
-            <a href="#" class="list-group-item">Tablas</a>
-          </div>
-
-        </div>
-
-        <div class="col-md-9">
-
-          <div ng-view></div>
-
-        </div>
-        <!-- /.col-lg-9 -->
-
-      </div>
-      <!-- /.row -->
-
-    </div>
-    <!-- /.container -->
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Homepage de la progra</p>
-        <p class="m-0 text-center text-white">TECAirlines app: v<span app-version></span></p>
-      </div>
-    </footer> 
-  </div>
 </body>
 </html>

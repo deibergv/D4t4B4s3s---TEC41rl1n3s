@@ -1,14 +1,167 @@
-<div class="col-md-10">
-    <!--Body content-->
-    JAJA:
-    <ul class="clients">
-      <li ng-repeat="client in $ctrl.clients">
-        <p>{{client.NombreComp}}</p>
-        <p>{{client.Telefono}}</p>
-        <p>{{client.Correo}}</p>
-        <p>{{client.Estudiante}}</p> 
-        <p>{{client.Carne}}</p> 
-        <p>{{client.millasEstudiante}}</p> 
+<!-- <div class="gap-mini"></div> -->
+  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/bombatica/home">Farmacias BombaTica</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/bombatica/home">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="!loggedIn">
+          <a class="nav-link" routerLink="/bombatica/home/login">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!loggedIn">
+          <a class="nav-link" routerLink="/bombatica/home/register">Registrar</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedIn">
+          <a class="nav-link" routerLink="/bombatica/home/user">Cuenta</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedIn">
+          <a class="nav-link" (click)="logout()" href="/bombatica/home">Log out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+<!-- Page Content -->
+<!-- <div class="container">
+  <div class="row">
+    <div  ng-if="true" class="col-md-3">
+      <div class="list-group">
+        <a href="#!/tecadmin/home" class="list-group-item" >Inicio</a>
+        <a href="#!/tecadmin/login" class="list-group-item">Tablas</a>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <div class="col-md-10"> -->
+          <!--Body content-->
+          <!-- JAJA:
+          <ul class="clients">
+            <li ng-repeat="client in $ctrl.clients">
+              <p>{{client.NombreComp}}</p>
+              <p>{{client.Telefono}}</p>
+              <p>{{client.Correo}}</p>
+              <p>{{client.Estudiante}}</p> 
+              <p>{{client.Carne}}</p> 
+              <p>{{client.millasEstudiante}}</p> 
+            </li>
+          </ul>
+      </div>
+      <div ui-view></div>
+    </div>
+  </div>
+</div> -->
+
+<div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar">
+      <li class="sidebar-main">
+        <a ng-click="toggleSidebar()">
+          Menu
+          <span class="menu-icon glyphicon glyphicon-transfer"></span>
+        </a>
+      </li>
+      <li class="sidebar-title"><span>NAVIGATION</span></li>
+      <li class="sidebar-list">
+        <a href="#!/tecadmin/home/dashboard">Inicio <span class="menu-icon fa fa-tachometer"></span></a>
+      </li>
+      <li class="sidebar-list">
+        <a href="#/tables">Tablas <span class="menu-icon fa fa-table"></span></a>
       </li>
     </ul>
-</div>
+    <div class="sidebar-footer">
+      <div class="col-xs-4">
+        <a href="#">
+          About
+        </a>
+      </div>
+      <div class="col-xs-4">
+        <a href="#">
+          Support
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- End Sidebar -->
+
+  <div id="content-wrapper">
+    <div class="page-content">
+
+      <!-- Header Bar -->
+      <div class="row header">
+        <div class="col-xs-12">
+          <div class="user pull-right">
+            <div class="item dropdown" uib-dropdown>
+              <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+                <img src="img/avatar.jpg">
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li class="dropdown-header">
+                  Joe Bloggs
+                </li>
+                <li class="divider"></li>
+                <li class="link">
+                  <a href="#">
+                    Profile
+                  </a>
+                </li>
+                <li class="link">
+                  <a href="#">
+                    Menu Item
+                  </a>
+                </li>
+                <li class="link">
+                  <a href="#">
+                    Menu Item
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li class="link">
+                  <a href="#">
+                    Logout
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="item dropdown" uib-dropdown>
+              <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+                <i class="fa fa-bell-o"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li class="dropdown-header">
+                  Notifications
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">Server Down!</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="page">
+              TEC Airlines: Servicio
+            </div>
+            <!-- <div class="breadcrumb-links">
+              Home / Dashboard
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <!-- End Header Bar -->
+
+      <!-- Main Content -->
+      <div ui-view></div>
+
+    </div><!-- End Page Content -->
+  </div><!-- End Content Wrapper -->
+</div><!-- End Page Wrapper -->
