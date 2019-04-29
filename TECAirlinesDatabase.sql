@@ -43,6 +43,7 @@ CREATE TABLE Aeropuerto (
   PRIMARY KEY(codigoM)
 );
 
+
 CREATE TABLE PMaleta (
 	codigoM  INTEGER NOT NULL,
 	peso INTEGER NOT NULL,
@@ -155,13 +156,13 @@ CREATE TABLE log_historial (
 --PROCEDIMIENTOS
 --PROCEDIMIENTO PARA CREAR NUEVO CLIENTE
 CREATE PROC CrearCliente
-	@Pasaporte INTEGER,
+	@Pasaporte VARCHAR(50),
 	@NombreComp VARCHAR(50),
 	@Telefono INTEGER,
 	@Correo VARCHAR(50),
 	@Estudiante BIT,
 	@Contraseña VARCHAR(50),
-	@NTarjeta INTEGER,
+	@NTarjeta VARCHAR(50),
 	@NombreU VARCHAR(50),
 	@Carne VARCHAR(50),
 	@Millas INTEGER
@@ -179,28 +180,31 @@ AS
 		BEGIN CATCH
 			SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
 		END CATCH
-	END
 
 
 CREATE PROC NuevaReservacion
-	@Pasaporte INTEGER, 
-	@TAvion VARCHAR(50), 
-	@Vuelo INTEGER,
-	@PTotalM INTEGER
+	@Pasaporte VARCHAR(50),
+	@CantMaletas INTEGER
 
 AS
 	BEGIN
 		BEGIN TRY
 			
 			insert into Reservacion values(@Pasaporte, 'Reservo')
-			insert into Maleta values(@Pasaporte)
+			DECLARE @intFlag INT
+			SET @intFlag = 1
+			WHILE (@intFlag <= @CantMaletas)
+			BEGIN
+				insert into Maleta values(@Pasaporte)
+				SET @intFlag = @intFlag + 1
+			END
 		END TRY
 		BEGIN CATCH
 			SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
 		END CATCH
 	END
 
-
+/*
 CREATE PROC NuevoTiquete
 	@IDReservacion INTEGER,
 	@ClaseAsiento VARCHAR(50)
@@ -208,7 +212,7 @@ CREATE PROC NuevoTiquete
 AS
 	BEGIN
 		DECLARE @CategoriaAsiento VARCHAR(50)
-		SELECT @CategoriaAsiento = Categoria FROM Asiento WH
+		SELECT @CategoriaAsiento = Categoria FROM Asiento WHERE */
 
 CREATE PROC NuevaAsistVuelo
 	@Correo VARCHAR(50)
@@ -222,6 +226,7 @@ BEGIN
 	END CATCH
 END
 
+
 --AGREGAR PASAJEROS Y MALETAS A UN VUELO
 CREATE PROC AgregarAlVuelo
 	@IDVuelo INTEGER,
@@ -231,11 +236,11 @@ AS
 BEGIN
 	BEGIN TRY	
 		BEGIN UPDATE Vuelo
-			SET @CantMaletas += CantMaletas
+			SET Vuelo.CantMaletas += @CantMaletas 
 			WHERE @IDVuelo = Vuelo.IDVuelo
 		END
 		BEGIN UPDATE Vuelo
-			SET @CantPasajeros += CPasajeros
+			SET Vuelo.CPasajeros += @CantPasajeros 
 			WHERE @IDVuelo = Vuelo.IDVuelo
 		END
 	END TRY
@@ -244,7 +249,6 @@ BEGIN
 	END CATCH
 END
 
---FALTA VALIDAR TOP
 --AGREGAR DE UN ASIENTO EN UN ASIENTO
 --AGREGAR ASIENTOS A UN AVION EN UN VUELO
 
@@ -283,11 +287,6 @@ BEGIN
 	END CATCH
 END
 
-
-EXEC AgregarAsiento 22, 1, 'P', 10
-DROP TABLE Avion, TAvion
-DROP PROC AgregarAsiento
-				
 CREATE PROC Promo
 AS
 	BEGIN
@@ -295,6 +294,7 @@ AS
 		FROM Promocion, Ruta, Vuelo
 		WHERE Promocion.IDVuelo = Vuelo.IDVuelo AND Vuelo.IDVuelo = Ruta.IDRuta
 	END
+
 
 CREATE PROC ActualizarMillas
 	@Pasaporte VARCHAR(50)
@@ -305,11 +305,6 @@ AS
 		SET MillasE += 100
 		WHERE @Carne = Estudiante.Carne
 	END
-
-EXEC  ActualizarMillas '12312312'
-DROP PROC ActualizarMillas
-
-
 		
 
 --ENVIAR AVION
@@ -320,7 +315,6 @@ BEGIN
 	SELECT * FROM TAvion
 END
 
-
 --ENVIAR RUTA DE VUELO
 CREATE PROCEDURE EnviarVuelo
 AS
@@ -329,7 +323,6 @@ BEGIN
 	FROM Ruta, CEscala, Escala
 	WHERE CEscala.IDEscala = Escala.IDEscala AND CEscala.IDVuelo = Ruta.IDVuelo
 END
-
 
 
 --TRIGGERS
