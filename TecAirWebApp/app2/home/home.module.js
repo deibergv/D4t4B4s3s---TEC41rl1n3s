@@ -5,5 +5,6 @@ angular.module('home',[
     'ngCookies',
     'core.client',
     'ui.bootstrap',
-    'ui.router'
+    'ui.router',
+    'core.auth'
 ]);

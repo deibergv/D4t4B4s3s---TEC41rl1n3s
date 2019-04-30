@@ -1,62 +1,20 @@
-<!-- <div class="gap-mini"></div> -->
-  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="/bombatica/home">Farmacias BombaTica</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/bombatica/home">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item" *ngIf="!loggedIn">
-          <a class="nav-link" routerLink="/bombatica/home/login">Login</a>
-        </li>
-        <li class="nav-item" *ngIf="!loggedIn">
-          <a class="nav-link" routerLink="/bombatica/home/register">Registrar</a>
-        </li>
-        <li class="nav-item" *ngIf="loggedIn">
-          <a class="nav-link" routerLink="/bombatica/home/user">Cuenta</a>
-        </li>
-        <li class="nav-item" *ngIf="loggedIn">
-          <a class="nav-link" (click)="logout()" href="/bombatica/home">Log out</a>
+
+
+<!-- <div class="col-md-9">
+  <div class="col-md-10"> 
+      JAJA:
+      <ul class="clients">
+        <li ng-repeat="client in $ctrl.clients">
+          <p>{{client.NombreComp}}</p>
+          <p>{{client.Telefono}}</p>
+          <p>{{client.Correo}}</p>
+          <p>{{client.Estudiante}}</p> 
+          <p>{{client.Carne}}</p> 
+          <p>{{client.millasEstudiante}}</p> 
         </li>
       </ul>
-    </div>
   </div>
-</nav> -->
-
-<!-- Page Content -->
-<!-- <div class="container">
-  <div class="row">
-    <div  ng-if="true" class="col-md-3">
-      <div class="list-group">
-        <a href="#!/tecadmin/home" class="list-group-item" >Inicio</a>
-        <a href="#!/tecadmin/login" class="list-group-item">Tablas</a>
-      </div>
-    </div>
-
-    <div class="col-md-9">
-      <div class="col-md-10"> -->
-          <!--Body content-->
-          <!-- JAJA:
-          <ul class="clients">
-            <li ng-repeat="client in $ctrl.clients">
-              <p>{{client.NombreComp}}</p>
-              <p>{{client.Telefono}}</p>
-              <p>{{client.Correo}}</p>
-              <p>{{client.Estudiante}}</p> 
-              <p>{{client.Carne}}</p> 
-              <p>{{client.millasEstudiante}}</p> 
-            </li>
-          </ul>
-      </div>
-      <div ui-view></div>
-    </div>
-  </div>
+  <div ui-view></div>
 </div> -->
 
 <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
@@ -75,7 +33,16 @@
         <a href="#!/tecadmin/home/dashboard">Inicio <span class="menu-icon fa fa-tachometer"></span></a>
       </li>
       <li class="sidebar-list">
-        <a href="#/tables">Tablas <span class="menu-icon fa fa-table"></span></a>
+        <a href="#!/tecadmin/home/flights">Vuelos <span class="menu-icon fa fa-table"></span></a>
+      </li>
+      <li class="sidebar-list">
+        <a href="#">Promociones <span class="menu-icon fa fa-table"></span></a>
+      </li>
+      <li class="sidebar-list">
+        <a href="#">Usuarios <span class="menu-icon fa fa-table"></span></a>
+      </li>
+      <li class="sidebar-list">
+        <a href="#">Reservaciones <span class="menu-icon fa fa-table"></span></a>
       </li>
     </ul>
     <div class="sidebar-footer">
@@ -126,7 +93,7 @@
                 </li>
                 <li class="divider"></li>
                 <li class="link">
-                  <a href="#">
+                  <a ng-click="logout()">
                     Logout
                   </a>
                 </li>

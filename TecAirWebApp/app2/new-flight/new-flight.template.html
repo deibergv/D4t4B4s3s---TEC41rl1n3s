@@ -1,0 +1,121 @@
+<div class="row">
+  <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+    <button type="button" class="btn btn-default" ng-click="$state.go('flights');">Volver a vuelos</button>
+  </div>
+</div>
+<h3 class="text-center font-weight-bold text-uppercase new-title">Nuevo vuelo</h3>
+<div class="row">
+  <div class="col-lg-6 col-md-6">
+    <div class='container-fluid typeahead-demo' style='max-width: 300px'>
+      <h5>Aeropuerto(Ciudad) de salida:</h5>
+      <input type="text" ng-model="asyncSelected" placeholder="Partida" uib-typeahead="address for address in getLocation($viewValue)" 
+      typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control" 
+      typeahead-popup-template-url="lib/angular-ui-bootstrap/template/typeahead/typeahead-popup.html">
+
+      <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+      <div ng-show="noResults">
+        <i class="glyphicon glyphicon-remove"></i> No Results Found
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6">
+    <div class='container-fluid typeahead-demo' style='max-width: 300px'>
+      <h5>Aeropuerto(Ciudad) de llegada:</h5>
+      <input type="text" ng-model="asyncSelected" placeholder="Llegada" uib-typeahead="address for address in getLocation($viewValue)" 
+      typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control" 
+      typeahead-popup-template-url="lib/angular-ui-bootstrap/template/typeahead/typeahead-popup.html">
+
+      <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+      <div ng-show="noResults">
+        <i class="glyphicon glyphicon-remove"></i> No Results Found
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6">
+    <div class="container-fluid" style='max-width: 300px'>
+      <h5>Fecha de salida:</h5>
+      <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup="M!/d!/yyyy" ng-model="dt1" is-open="popup1.opened" 
+        datepicker-options="dateOptions" ng-required="true" close-text="Close" 
+        datepicker-popup-template-url="lib/angular-ui-bootstrap/template/datepickerPopup/popup.html"
+        datepicker-template-url="lib/angular-ui-bootstrap/template/datepicker/datepicker.html"/>
+
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+      </div>
+  </div>
+  <div class="col-lg-6 col-md-6">
+    <div class="container-fluid" style='max-width: 300px'>
+      <h5>Fecha de llegada:</h5>
+      <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup="M!/d!/yyyy" ng-model="dt2" is-open="popup2.opened" 
+        datepicker-options="dateOptions" ng-required="true" close-text="Close" 
+        datepicker-popup-template-url="lib/angular-ui-bootstrap/template/datepickerPopup/popup.html"
+        datepicker-template-url="lib/angular-ui-bootstrap/template/datepicker/datepicker.html"/>
+
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+    </div>
+  </div>
+  <table class="table table-hover table-bordered table-responsive table-striped text-center">
+    <thead class="thead-light">
+      <tr>
+        <th class="text-center">Numero</th>
+        <th class="text-center">Avion</th>
+        <th class="text-center">Aeropuerto-salida</th>
+        <th class="text-center">Aeropuerto-llegada</th>
+        <th class="text-center">Escalas</th>
+        <th class="text-center">Fecha-salida</th>
+        <th class="text-center">Fecha-llegada</th>
+        <th class="text-center">Estado</th>
+        <th class="text-center">Duracion(horas)</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-click="console.log('click');"><td>1</td><td>SJO</td><td>NYC</td><td>1</td><td>05/02/19</td><td>05/03/19</td><td>Activo</td><td>6</td></tr>
+      <!-- <tr *ngFor="let client of clients; let id = index">
+      <td><span contenteditable="true" (keyup)="changeValue(id, 'idd', $event)" (blur)="updateList(id, 'idd', $event)">
+        {{client.idd}}
+      </span></td>
+      <td><span contenteditable="true" (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)">
+        {{client.name}}
+      </span></td>
+      <td>
+          <span contenteditable="true" (keyup)="changeValue(id, 'lastname', $event)" (blur)="updateList(id, 'lastname', $event)">
+          {{client.lastname}}
+          </span>
+      </td>
+      <td>
+          <span contenteditable="true" (keyup)="changeValue(id, 'address', $event)" (blur)="updateList(id, 'address', $event)">
+          {{client.address}}
+          </span>
+      </td>
+      <td>
+          <span contenteditable="true" (keyup)="changeValue(id, 'birthday', $event)" (blur)="updateList(id, 'birthday', $event)">
+          {{client.birthday}}
+          </span>
+      </td>
+      <td>
+          <span contenteditable="true" (keyup)="changeValue(id, 'contact', $event)" (blur)="updateList(id, 'contact', $event)">
+          {{client.contact}}
+          </span>
+      </td>
+      <td>
+          <span contenteditable="true" (keyup)="changeValue(id, 'status', $event)" (blur)="updateList(id, 'status', $event)">
+          {{client.status}}
+          </span>
+      </td>
+      <td>
+          <span>
+          <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="remove(id)">X</button>
+          </span>
+      </td>
+      </tr> -->
+    </tbody>
+  </table>
+</div>

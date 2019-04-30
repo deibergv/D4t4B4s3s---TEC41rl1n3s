@@ -2,16 +2,24 @@
 
 angular.
   module('root').
-  config(['$stateProvider', '$urlRouterProvider',
+  config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
     function($stateProvider, $urlRouterProvider) {
 
+        $urlRouterProvider.otherwise('/tecadmin/home');
         $urlRouterProvider.when('/tecadmin/home', '/tecadmin/home/dashboard');
-        // For unmatched routes
-        $urlRouterProvider.otherwise('/tecadmin/login');
 
         // Application routes
         $stateProvider
-            .state('home', {
+            .state('main', {
+                'abstract': true,
+                resolve: {
+                    user: function(User){
+                        console.log('checking authentication');
+                        return User.checkAuthentication();
+                    }
+                }
+            })
+            .state('main.home', {
                 url: '/tecadmin/home',
                 template: '<home></home>'
             })
@@ -19,8 +27,18 @@ angular.
                 url: '/tecadmin/login',
                 template: '<login></login>'
             })
-            .state('home.dashboard', {
+            .state('dashboard', {
+                parent: 'main.home',
                 url: '/dashboard',
                 template: '<dashboard></dashboard>'
+            })
+            .state('flights', {
+                parent: 'main.home',
+                url: '/flights',
+                template: '<flights></flights>'
+            }).state('newflight', {
+                parent: 'main.home',
+                url: '/newflight',
+                template: '<new-flight></new-flight>'
             });
     }]);

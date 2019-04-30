@@ -4,12 +4,12 @@ angular.module('root',[
     'ngAnimate',
     'ngCookies',
     'ui.router',
-    'core.version',
     'core',
+    'core.version',
+    'core.auth',
     'home',
     'login',
-    'dashboard'
+    'dashboard',
+    'flights',
+    'newFlight'
 ]);
-// .controller('MainController', ['$scope', function ($scope) {
-//     $scope.loggedIn = true;
-// }]);
