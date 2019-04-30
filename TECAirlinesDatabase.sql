@@ -151,7 +151,11 @@ CREATE TABLE log_historial (
   Nombre VARCHAR(50)
 );
 
-
+CREATE TABLE BackupMaleta (
+	Fecha DATETIME,
+	CodigoM INTEGER,
+	PropietarioID VARCHAR(50)
+);
 
 --PROCEDIMIENTOS
 --PROCEDIMIENTO PARA CREAR NUEVO CLIENTE
@@ -174,8 +178,6 @@ AS
 			@Estudiante = 1
 			insert into Estudiante values ( @Pasaporte, @Carne, 0)
 			insert into Universidad values(@Carne, @NombreU)
-		--ELSE
-			--SELECT 'No es estudiante'
 	 END TRY
 		BEGIN CATCH
 			SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
@@ -203,6 +205,7 @@ AS
 			SELECT ERROR_PROCEDURE() AS ErrorProcedimiento, ERROR_MESSAGE() AS TipoError
 		END CATCH
 	END
+
 
 /*
 CREATE PROC NuevoTiquete
@@ -325,8 +328,15 @@ BEGIN
 END
 
 
---TRIGGERS
+CREATE PROC EnviarAeropuerto
+AS
+BEGIN
+	SELECT Nombre, CodigoP
+	FROM Aeropuerto
+END
 
+--TRIGGERS
+-- TRIGGER QUE RESPALDA DATOS DE CLIENTES Y FECHAS DE REGISTRO
 CREATE TRIGGER Historial
   ON Cliente FOR INSERT
   AS
@@ -338,5 +348,18 @@ CREATE TRIGGER Historial
   INSERT INTO log_historial VALUES (getdate(), @Passport, @Name)
 
 
+-- TIGGRER PARA CONECTAR MALETA CON CLIENTE AL HACERSE UNA RESERVACION
+CREATE TRIGGER RespaldoMaletaCliente
+  ON Maleta FOR INSERT
+  AS
+  SET NOCOUNT ON;
+  DECLARE @Luggage VARCHAR(50)
+  SELECT @Luggage = IDPropietario FROM inserted 
+  DECLARE @CodMaleta INTEGER
+  SELECT @CodMaleta = codigoM FROM inserted
+  INSERT INTO BackupMaleta VALUES (getdate(), @CodMaleta, @Luggage)
 
 
+
+  EXEC CrearCliente '8132883', 'Pablo Esquivel', 123824, 'canchus@gmail.com', 1, '1312', '2424', 'TEC', '2384224', 0
+  
