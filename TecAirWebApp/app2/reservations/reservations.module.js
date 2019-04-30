@@ -1,5 +1,5 @@
 'use strict';
 
-angular.module('flights', [
+angular.module('reservations', [
   'ui.bootstrap'
   ]);

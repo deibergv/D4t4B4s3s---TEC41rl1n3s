@@ -40,5 +40,13 @@ angular.
                 parent: 'main.home',
                 url: '/newflight',
                 template: '<new-flight></new-flight>'
+            }).state('users', {
+                parent: 'main.home',
+                url: '/users',
+                template: '<users></users>'
+            }).state('reservations', {
+                parent: 'main.home',
+                url: '/reservations',
+                template: '<reservations></reservations>'
             });
     }]);

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
-    <button type="button" class="btn btn-default" ng-click="$state.go('flights');">Volver a vuelos</button>
+    <button type="button" class="btn btn-default btn-info" ng-click="$state.go('flights');">Volver a vuelos</button>
   </div>
 </div>
 <h3 class="text-center font-weight-bold text-uppercase new-title">Nuevo vuelo</h3>
@@ -61,61 +61,39 @@
       </p>
     </div>
   </div>
-  <table class="table table-hover table-bordered table-responsive table-striped text-center">
+  <div class="gap-mini"></div> 
+  <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1" style="max-width: 300px">
+    <h5>Millas:</h5>
+    <input type="text" ng-model="miless"/>
+  </div>
+  <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+    <button type="button" class="btn btn-default" ng-click="">Agregar viaje</button>
+  </div>
+  <h3 class="text-center font-weight-bold text-uppercase new-title">Escalas</h3>
+  <table class="table table-hover table-bordered table-responsive table-striped text-center col-lg-12 col-md-12">
     <thead class="thead-light">
       <tr>
         <th class="text-center">Numero</th>
-        <th class="text-center">Avion</th>
         <th class="text-center">Aeropuerto-salida</th>
         <th class="text-center">Aeropuerto-llegada</th>
-        <th class="text-center">Escalas</th>
         <th class="text-center">Fecha-salida</th>
         <th class="text-center">Fecha-llegada</th>
-        <th class="text-center">Estado</th>
-        <th class="text-center">Duracion(horas)</th>
+        <th class="text-center">Millas</th>
       </tr>
     </thead>
-
     <tbody>
-      <tr ng-click="console.log('click');"><td>1</td><td>SJO</td><td>NYC</td><td>1</td><td>05/02/19</td><td>05/03/19</td><td>Activo</td><td>6</td></tr>
-      <!-- <tr *ngFor="let client of clients; let id = index">
-      <td><span contenteditable="true" (keyup)="changeValue(id, 'idd', $event)" (blur)="updateList(id, 'idd', $event)">
-        {{client.idd}}
-      </span></td>
-      <td><span contenteditable="true" (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)">
-        {{client.name}}
-      </span></td>
-      <td>
-          <span contenteditable="true" (keyup)="changeValue(id, 'lastname', $event)" (blur)="updateList(id, 'lastname', $event)">
-          {{client.lastname}}
-          </span>
-      </td>
-      <td>
-          <span contenteditable="true" (keyup)="changeValue(id, 'address', $event)" (blur)="updateList(id, 'address', $event)">
-          {{client.address}}
-          </span>
-      </td>
-      <td>
-          <span contenteditable="true" (keyup)="changeValue(id, 'birthday', $event)" (blur)="updateList(id, 'birthday', $event)">
-          {{client.birthday}}
-          </span>
-      </td>
-      <td>
-          <span contenteditable="true" (keyup)="changeValue(id, 'contact', $event)" (blur)="updateList(id, 'contact', $event)">
-          {{client.contact}}
-          </span>
-      </td>
-      <td>
-          <span contenteditable="true" (keyup)="changeValue(id, 'status', $event)" (blur)="updateList(id, 'status', $event)">
-          {{client.status}}
-          </span>
-      </td>
-      <td>
-          <span>
-          <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="remove(id)">X</button>
-          </span>
-      </td>
-      </tr> -->
+      <tr><td>1</td><td>SJO</td><td>NYC</td><td>1</td><td>05/02/19</td><td>05/03/19</td></tr>
     </tbody>
   </table>
+  <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1" style="max-width: 300px">
+    <h5>Avion:</h5>
+    <select class="form-control" ng-model="placement.selected" ng-options="o as o for o in placement.options"></select>
+  </div>
+  <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1" style="max-width: 300px">
+    <h5>Precio:</h5>
+    <input type="text" ng-model="price"/>
+  </div>
+  <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+    <button type="button" class="btn btn-primary" ng-click="$scope.go('flights');">Completar vuelo</button>
+  </div>
 </div>

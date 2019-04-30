@@ -11,5 +11,7 @@ angular.module('root',[
     'login',
     'dashboard',
     'flights',
-    'newFlight'
+    'newFlight',
+    'users',
+    'reservations'
 ]);

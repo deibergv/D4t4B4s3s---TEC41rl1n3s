@@ -31,7 +31,8 @@ angular.
       $scope.dt2 = new Date();
     
       $scope.clear = function() {
-        $scope.dt = null;
+        $scope.dt1 = null;
+        $scope.dt2 = null;
       };
     
       $scope.inlineOptions = {
@@ -44,16 +45,9 @@ angular.
         // dateDisabled: disabled,
         formatYear: 'yy',
         maxDate: new Date(2020, 5, 22),
-        minDate: today,
+        minDate: new Date(),
         startingDay: 1
       };
-    
-      // Disable weekend selection
-      function disabled(data) {
-        var date = data.date,
-          mode = data.mode;
-        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-      }
     
       $scope.toggleMin = function() {
         $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
@@ -70,13 +64,13 @@ angular.
         $scope.popup2.opened = true;
       };
     
-      $scope.setDate = function(year, month, day) {
-        $scope.dt = new Date(year, month, day);
-      };
+      // $scope.setDate = function(year, month, day) {
+      //   $scope.dt = new Date(year, month, day);
+      // };
     
-      $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-      $scope.format = $scope.formats[0];
-      $scope.altInputFormats = ['M!/d!/yyyy'];
+      // $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+      // $scope.format = $scope.formats[0];
+      // $scope.altInputFormats = ['M!/d!/yyyy'];
     
       $scope.popup1 = {
         opened: false
@@ -90,6 +84,7 @@ angular.
       tomorrow.setDate(tomorrow.getDate() + 1);
       var afterTomorrow = new Date();
       afterTomorrow.setDate(tomorrow.getDate() + 1);
+
       $scope.events = [
         {
           date: tomorrow,
@@ -115,8 +110,16 @@ angular.
             }
           }
         }
-    
         return '';
       }
+
+      $scope.placement = {
+        options: [
+          'Boeing 737',
+          'Boeing 787',
+          'Airbus A330'
+        ],
+        selected: 'Boeing 737'
+      };
   }]
 });
