@@ -100,7 +100,7 @@ CREATE TABLE Escala (
 	AeLlegada VARCHAR(50) NOT NULL,
 	FechaSalida DATETIME NOT NULL,
 	FechaLlegada DATETIME NOT NULL,
-	Duración INTEGER NOT NULL,
+	DuraciÃ³n INTEGER NOT NULL,
 	PRIMARY KEY(IDEscala)
 );
 
@@ -111,7 +111,7 @@ CREATE TABLE CEscala (
 );
 
 CREATE TABLE Vuelo (
-	IDVuelo INTEGER IDENTITY(1,1) NOT NULL, -- Debe tener aumento aumatico (o que se cree un ID único automatico)
+	IDVuelo INTEGER IDENTITY(1,1) NOT NULL, -- Debe tener aumento aumatico (o que se cree un ID Ãºnico automatico)
 	CPasajeros INTEGER NOT NULL,
 	CantMaletas INTEGER NOT NULL,
 	PRIMARY KEY(IDVuelo)
@@ -127,6 +127,7 @@ CREATE TABLE Reservacion (
 CREATE TABLE TReservacion (
 	IDReservacion INTEGER NOT NULL,
 	IDAvion INTEGER NOT NULL,
+	IDVuelo INTEGER NOT NULL,
 	PRIMARY KEY(IDReservacion)
 );
 
@@ -166,7 +167,7 @@ CREATE PROC CrearCliente
 	@Telefono INTEGER,
 	@Correo VARCHAR(50),
 	@Estudiante BIT,
-	@Contraseña VARCHAR(50),
+	@ContraseÃ±a VARCHAR(50),
 	@NTarjeta VARCHAR(50),
 	@NombreU VARCHAR(50),
 	@Carne VARCHAR(50),
@@ -174,7 +175,7 @@ CREATE PROC CrearCliente
 
 AS
 	BEGIN TRY
-		insert into Cliente values(@Pasaporte, @NombreComp, @Telefono, @Correo, @Estudiante, @Contraseña, @NTarjeta)
+		insert into Cliente values(@Pasaporte, @NombreComp, @Telefono, @Correo, @Estudiante, @ContraseÃ±a, @NTarjeta)
 		IF
 			@Estudiante = 1
 			insert into Estudiante values ( @Pasaporte, @Carne, 0)
