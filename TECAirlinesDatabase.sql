@@ -32,8 +32,9 @@ CREATE TABLE Universidad (
 
 CREATE TABLE Aeropuerto ( 
   Nombre VARCHAR(50) NOT NULL,
-  Pais VARCHAR(50) NOT NULL,
+  CodigoIA VARCHAR(50) NOT NULL,
   CodigoP VARCHAR(5) NOT NULL,
+  Pais VARCHAR(50) NOT NULL,
   PRIMARY KEY(Nombre)
 );
 
@@ -331,7 +332,7 @@ END
 CREATE PROC EnviarAeropuerto
 AS
 BEGIN
-	SELECT Nombre, CodigoP
+	SELECT Nombre, CodigoIA ,CodigoP
 	FROM Aeropuerto
 END
 
@@ -360,6 +361,4 @@ CREATE TRIGGER RespaldoMaletaCliente
   INSERT INTO BackupMaleta VALUES (getdate(), @CodMaleta, @Luggage)
 
 
-
-  EXEC CrearCliente '8132883', 'Pablo Esquivel', 123824, 'canchus@gmail.com', 1, '1312', '2424', 'TEC', '2384224', 0
   
