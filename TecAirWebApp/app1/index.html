@@ -44,94 +44,82 @@
 
 <body>
   <div class="global-wrap">
-    <header id="main-header">
-      <div class="header-top">
-          <div class="container">
-              <div class="row">
-                  <div class="col-md-3">
-                      <a class="logo" href="#!/tecairlines/home">
-                          <img src="img/logo.png" alt="TECAirline logo" title="TEC Airlines" />
-                      </a>
-                  </div>
-                  <div class="col-md-3 col-md-offset-2">
-                      <a href="#!/tecairlines/home">
-                          <h3>TEC Airlines</h3>
-                      </a>
-                  </div>
-                  <div class="col-md-4">
-                      <div class="top-user-area clearfix">
-                          <ul class="top-user-area-list list list-horizontal list-border">
-                              <li>
-                                  <!-- <a href="login-register.html"> -->
-                                  Inicar sesión / Registrarse
-                                  <!-- </a> -->
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="container">
-          <nav class="navbar navbar-default" role="navigation">
-              <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="#">Menu</a>
-              </div>
-              <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
-                  <ul class="nav navbar-nav">
-                      <li><a href="#!/tecairlines/home">
-                          Inicio
-                      </a></li>
-                      <li><a href="#">
-                          Vuelos
-                      </a></li>
-                  </ul>
-              </div>
-          </nav>
-          <!-- <div class="nav">
-              <ul class="slimmenu" id="slimmenu">
-                  <li class="active">
-                  <a href="#!/tecairlines/home">
-                  Inicio
-                  </a>
-                  </li>
+
+    <nav class="navbar navbar-default navbar-fixed-top bg-primary" role="navigation">
+      <div class="container-fluid">
+        <div class="header-top">
+          <div class="row">
+            <!-- <div class="col-md-3">
+              <a class="logo" href="#!/tecairlines/home">
+                <img src="img/logo.png" alt="TECAirline logo" title="TEC Airlines" />
+              </a>
+            </div> -->
+            <div class="text-center">
+              <!-- <a href="#!/tecairlines/home"> -->
+                <h4>TEC Airlines</h4>
+              <!-- </a> -->
+            </div>
+            <!-- <div class="col-md-4">
+              <div class="top-user-area clearfix">
+                <ul class="top-user-area-list list list-horizontal list-border">
                   <li>
-                  <a href="buscar-vuelos.html"> 
-                  Vuelos
-                  </a> 
+                    <a href="#!/tecairlines/home/login">
+                      Inicar sesión / Registrarse
+                    </a>
                   </li>
-              </ul>
-          </div> -->
+                </ul>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="navbar-header">
+          <a class="navbar-brand logo" href="#!/tecairlines/home">
+            <img alt="Brand" src="img/logo.png">
+          </a>
+          <!-- <p>TEC Airlines</p> -->
+        </div>
+        <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+          <ul class="nav navbar-nav">
+            <li><a href="#!/tecairlines/home">
+              Inicio
+            </a></li>
+            <li><a href="#">
+              Vuelos
+            </a></li>
+            <li><a href="#">
+              Promociones
+            </a></li>
+            <li><a class="navbar-right" href="#">
+              Inicar sesión / Registrarse
+            </a></li>
+          </ul>
+        </div>
       </div>
-    </header>
-    
+    </nav>
+
+    <div class="gap"></div>
+
     <div ui-view></div>
-    
+
     <!-- holder -->
     <div class="bg-holder">
       <div class="bg-mask"></div>
       <div class="bg-parallax" style="background-image:url(img/register.jpeg);"></div>
       <div class="bg-content">
         <div class="container">
-            <div class="gap gap-big text-center text-white">
+          <div class="gap gap-big text-center text-white">
 
-            </div>
+          </div>
         </div>
       </div>
     </div>
     <!-- holder -->
-    
+
     <!-- footer -->
     <footer id="main-footer">
-        <div class="container">
-            <div class="row row-wrap">
-                <!-- <div class="col-md-3">
+      <div class="container">
+        <div class="row row-wrap">
+          <!-- <div class="col-md-3">
                         <p class="mb20">Puedes seguirnos en nuestras redes sociales</p>
                         <ul class="list list-horizontal list-space">
                             <li>
@@ -142,29 +130,30 @@
                             </li>
                         </ul>
                     </div> -->
-    
-                <div class="col-md-3">
-    
-    
-                </div>
-                <!-- <div class="col-md-2">
+
+          <div class="col-md-3">
+
+
+          </div>
+          <!-- <div class="col-md-2">
                         <ul class="list list-footer">
                             <li><a href="#">Acerca de</a>
                             </li>
                         </ul>
                     </div> -->
-                <div class="col-md-4">
-                    <h4>¿Tienes preguntas?</h4>
-                    <h4 class="text-color">+506 8888-8888</h4>
-                    <h4><a href="#" class="text-color">support@tecairlines.com</a></h4>
-                    <p>Con gusto le atenderemos.</p>
-                </div>
-    
-            </div>
+          <div class="col-md-4">
+            <h4>¿Tienes preguntas?</h4>
+            <h4 class="text-color">+506 8888-8888</h4>
+            <h4><a href="#" class="text-color">support@tecairlines.com</a></h4>
+            <p>Con gusto le atenderemos.</p>
+          </div>
+
         </div>
+      </div>
     </footer>
   </div>
   <!-- <div>TECAirlines app: v<span app-version></span></div> -->
 
 </body>
+
 </html>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('root',[
-    'ngRoute',
+    'ui.router',
     'ngAnimate',
     'core',
     'home'

@@ -23,9 +23,9 @@ angular.
                 url: '/tecairlines/home',
                 template: '<home></home>'
             })
-            .state('home.login', {
-                url: '/tecairlines/login',
-                template: '<login></login>'
+            .state('home.registerLogin', {
+                url: '/tecairlines/register-login',
+                template: '<register-login></register-login>'
             });
             // .state('dashboard', {
             //     parent: 'main.home',
