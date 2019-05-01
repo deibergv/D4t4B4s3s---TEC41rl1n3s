@@ -332,9 +332,11 @@ END
 CREATE PROC EnviarAeropuerto
 AS
 BEGIN
-	SELECT Nombre, CodigoIA ,CodigoP
+	SELECT Nombre, CodigoIA ,CodigoP, Pais
 	FROM Aeropuerto
 END
+
+DROP PROC EnviarAeropuerto
 
 --TRIGGERS
 -- TRIGGER QUE RESPALDA DATOS DE CLIENTES Y FECHAS DE REGISTRO
